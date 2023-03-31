@@ -8,6 +8,7 @@ const Nav = () => {
       <NavLink to="/Login">Đăng Nhập</NavLink>
       <NavLink to="/ForgotPass">Quên Mật khẩu</NavLink>
       <NavLink to="/Info">Ca Nhan</NavLink>
+      <NavLink to="/Shopping">Mua san pham</NavLink>
     </div>
   );
 };
