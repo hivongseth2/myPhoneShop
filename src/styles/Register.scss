@@ -1,0 +1,80 @@
+.containerReg
+{
+    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    background-color: rgba(17, 18, 19, 0.288);
+    width: fit-content;
+    align-items: center;
+    grid-template-columns: 40% 55%;
+    display: grid;
+ 
+    margin: 50px auto;;
+    font-size: 22px;
+    .formReg
+    {
+        display:grid ;
+        width: 30%;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        grid-template-columns:auto;
+        height: auto;
+        font-weight: 900;
+
+        .item
+        {
+            // display: flex;
+           gap: 100px;
+            margin: 10px;
+            label
+            {
+                margin: 2px;
+                display: block;
+                font-weight: 400;
+                color: rgb(21, 46, 78);
+
+            }
+            input
+            {
+                margin-left: 20px;
+                border-radius: 5px;
+                width: 400px;
+                height: 30px;
+                
+            }
+            .submitBtn
+            {
+                margin: 10px;
+                width: 100px;
+                height: 40px;
+                border-radius: 5px;
+                background-color: rgb(21, 46, 78);
+                color: white;
+                font-weight: 600;
+                font-size: 18px;
+                border: none;
+                cursor: pointer;
+                &:hover
+                {
+                    background-color: rgb(37, 114, 214);
+                    color: white;
+                }
+            }
+           
+
+           
+        }
+       
+    }
+    .imgReg
+    {
+        // display: inline-block;
+        // width:70%;
+
+      .img{
+    
+        object-fit: cover;
+
+      }
+    }
+
+   
+   
+}
