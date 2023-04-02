@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import BtnBuy from "./BtnBuy";
 import BtnCart from "./BtnCart";
-
+import DetailBtn from "./DetailBtn";
 const Item = (props) => {
   const [data, setData] = useState(props);
   const [img, setImg] = useState();
@@ -34,6 +34,7 @@ const Item = (props) => {
           <p class="card_description">
             {data.children ? data.children.description : ""}
           </p>
+          <DetailBtn className="DetailBtn"></DetailBtn>
           <div className="button">
             <div className="btn-item">
               <BtnBuy />

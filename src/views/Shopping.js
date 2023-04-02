@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import Item from "./Item";
 import "../styles/Shopping.scss";
+import Nav from "./Nav";
 
 const Shopping = () => {
   const [dataPhone, setDataPhone] = useState([]);
@@ -12,10 +13,13 @@ const Shopping = () => {
   }, []);
 
   return (
-    <div className="container">
-      {dataPhone.map((item) => {
-        return <Item children={item} />;
-      })}
+    <div className="shopping">
+      {/* <Nav /> */}
+      <div className="container">
+        {dataPhone.map((item) => {
+          return <Item children={item} />;
+        })}
+      </div>
     </div>
   );
 };

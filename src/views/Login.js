@@ -106,9 +106,6 @@ const Login = () => {
           Forgot <a href="#">password?</a>
         </p>
       </div>
-      <div className="right">
-        <img src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/515LonvSwuL._AC_UF894,1000_QL80_.jpg"></img>
-      </div>
     </form>
   );
 };
