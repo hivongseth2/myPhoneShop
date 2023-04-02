@@ -1,4 +1,4 @@
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../styles/Forgot.scss";
 import { toast } from "react-toastify";
 
 import { useState } from "react";
@@ -40,23 +40,20 @@ const ForgotPass = () => {
 
   return (
     <div className="forgot-pass">
-      <form className="col-8 offset-2 fs-6 " onSubmit={handleResetPassword}>
-        <div className="mb-3">
-          <h2>Email address</h2>
-          <input
-            type="email"
-            className="form-control inputEmail "
-            placeholder="Enter email"
-            name="email"
-            value={email}
-            onChange={handleOnChangeInput}
-          />
-        </div>
+      <div class="subscribe">
+        <p>Forget Password</p>
+        <input
+          placeholder="Your e-mail"
+          class="subscribe-input"
+          name="email"
+          type="email"
+          onChange={handleOnChangeInput}
+        />
 
-        <button type="submit" className="btn btn-primary ">
-          Reset Password
-        </button>
-      </form>
+        <div class="submit-btn" onClick={handleResetPassword}>
+          SUBMIT
+        </div>
+      </div>
     </div>
   );
 };

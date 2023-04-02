@@ -7,6 +7,8 @@ import { ToastContainer, toast } from "react-toastify";
 import ForgotPass from "./ForgotPass";
 import "react-toastify/dist/ReactToastify.css";
 import Information from "./Information";
+import Shopping from "./Shopping";
+import DetailItem from "./DetaiItem";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function App() {
@@ -31,6 +33,12 @@ function App() {
             </Route>
             <Route path="/Info">
               <Information />
+            </Route>
+            <Route path="/Shopping">
+              <Shopping />
+            </Route>
+            <Route path="/DetailSP">
+              <DetailItem />
             </Route>
           </Switch>
         </header>

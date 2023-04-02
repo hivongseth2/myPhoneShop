@@ -13,7 +13,8 @@ const Information = (props) => {
 
   useEffect(() => {
     // Lấy thông tin khách hàng từ props
-    if (user) {
+    console.log(user);
+    if (user != undefined) {
       setName(user.name || "");
       setEmail(user.email || "");
       setPhone(user.numberPhone || "");
