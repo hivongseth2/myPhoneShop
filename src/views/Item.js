@@ -34,7 +34,7 @@ const Item = (props) => {
           <p class="card_description">
             {data.children ? data.children.description : ""}
           </p>
-          <DetailBtn className="DetailBtn"></DetailBtn>
+          <DetailBtn className="DetailBtn" data={data} />
           <div className="button">
             <div className="btn-item">
               <BtnBuy />

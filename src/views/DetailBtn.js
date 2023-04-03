@@ -1,7 +1,24 @@
 import "../styles/DetailBtn.scss";
-const DetailBtn = () => {
+import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
+import { useState } from "react";
+const DetailBtn = (props) => {
+  const history = useHistory();
+  const [id, setId] = useState();
+  useEffect(() => {
+    if (props.data.children.id) {
+      setId(props.data.children.id);
+      // setData(props);
+    }
+  }, [props]);
+
+  const handleView = () => {
+    console.log(props.data.children.id);
+    history.push(`Shopping/${id}`);
+  };
   return (
-    <button className="DetailBtn">
+    <button className="DetailBtn" onClick={() => handleView()}>
       <span className="label">Xem</span>
       <span className="icon">
         <svg
@@ -20,4 +37,4 @@ const DetailBtn = () => {
     </button>
   );
 };
-export default DetailBtn;
+export default withRouter(DetailBtn);

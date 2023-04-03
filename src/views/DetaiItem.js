@@ -1,7 +1,18 @@
 import DetailImg from "./DetailImg";
-const DetailItem = () => {
+import "../styles/DetailItem.scss";
+import { withRouter } from "react-router-dom";
+import DetailItemDescription from "./DetailItemDescription";
+import { useEffect } from "react";
+import axios from "axios";
+
+const DetailItem = (props) => {
   return (
-    <DetailImg />
+    <div className="ContainerDetail">
+      <DetailImg data={props.match.params.id} />
+
+      <DetailItemDescription data={props.match.params.id} />
+    </div>
+
     // <div className="detailItemInfo">
     //   <h2 className="detailItemTitle">Item title</h2>
     //   <p className="detailItemDescription">
@@ -18,4 +29,4 @@ const DetailItem = () => {
     // </div>
   );
 };
-export default DetailItem;
+export default withRouter(DetailItem);

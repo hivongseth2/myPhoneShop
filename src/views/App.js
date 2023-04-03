@@ -34,10 +34,10 @@ function App() {
             <Route path="/Info">
               <Information />
             </Route>
-            <Route path="/Shopping">
+            <Route path="/Shopping" exact>
               <Shopping />
             </Route>
-            <Route path="/DetailSP">
+            <Route path="/Shopping/:id">
               <DetailItem />
             </Route>
           </Switch>

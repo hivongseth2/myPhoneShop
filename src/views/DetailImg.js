@@ -1,13 +1,25 @@
 import { useState, useRef } from "react";
 import "../styles/DetailImg.scss";
-const DetailImg = () => {
+import { useEffect } from "react";
+import axios from "axios";
+const DetailImg = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [activeImg, setActiveImg] = useState(
-    "https://cdn.tgdd.vn/Products/Images/42/264060/samsung-galaxy-s23-600x600.jpg"
+    "https://concrete.store/Content/images/not-available.jpg"
   );
 
   const imageListRef = useRef(null);
 
+  useEffect(async () => {
+    if (props.data) {
+      // let id = props.match.params.id;
+      // console.log(props.data);
+      let res = await axios.get(
+        `http://localhost:8080/api/product/${props.data}/image`
+      );
+      setActiveImg(res.config.url);
+    }
+  }, [activeImg]);
   const handleActive = (index, event) => {
     setActiveIndex(index);
     setActiveImg(event.target.src);
@@ -48,16 +60,25 @@ const DetailImg = () => {
       <div className="detailImg">
         <img src={activeImg} alt="item" />
         <div className="divChild">
-          <button onClick={() => nextBtn()}> next </button>
+          <button className="btnNext" onClick={() => nextBtn()}>
+            &#10095;
+          </button>
+
+          <button
+            className="btnPre"
+            onClick={() => {
+              preBtn();
+            }}
+          >
+            &#10094;
+          </button>
+
           <ul className="itemChild" ref={imageListRef}>
             <li
               className={`img ${activeIndex === 0 ? "active" : ""}`}
               onClick={(event) => handleActive(0, event)}
             >
-              <img
-                src="https://www.cnet.com/a/img/resize/f887b44e7f291bb73928786204b1b39f079c9f04/hub/2022/09/17/1b245795-b741-44b7-be8a-5f41eefdb310/20220916-iphone-14-pro-01.jpg?auto=webp&fit=crop&height=528&width=940"
-                alt="item"
-              />
+              <img src={activeImg} alt="item" />
             </li>
 
             <li
@@ -107,13 +128,6 @@ const DetailImg = () => {
               />
             </li>
           </ul>
-          <button
-            onClick={() => {
-              preBtn();
-            }}
-          >
-            prev
-          </button>
         </div>
       </div>
     </div>
