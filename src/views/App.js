@@ -9,6 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Information from "./Information";
 import Shopping from "./Shopping";
 import DetailItem from "./DetaiItem";
+import Cart from "./Cart";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function App() {
@@ -40,6 +41,10 @@ function App() {
             <Route path="/DetailSP">
               <DetailItem />
             </Route>
+            <Route path="/Cart">
+              <Cart />
+            </Route>
+
           </Switch>
         </header>
         <ToastContainer

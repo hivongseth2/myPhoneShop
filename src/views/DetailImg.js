@@ -111,6 +111,24 @@ const DetailImg = () => {
             onClick={() => {
               preBtn();
             }}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
           >
             prev
           </button>
