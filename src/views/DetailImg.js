@@ -126,13 +126,6 @@ const DetailImg = (props) => {
               />
             </li>
           </ul>
-          <button
-            onClick={() => {
-              preBtn();
-            }}
-          >
-            prev
-          </button>
         </div>
       </div>
     </div>
