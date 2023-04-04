@@ -14,10 +14,9 @@ const Shopping = () => {
 
   return (
     <div className="shopping">
-      {/* <Nav /> */}
       <div className="container">
-        {dataPhone.map((item) => {
-          return <Item children={item} />;
+        {dataPhone.map((item, index) => {
+          return <Item key={index} children={item} />;
         })}
       </div>
     </div>

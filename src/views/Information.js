@@ -19,7 +19,7 @@ const Information = (props) => {
       setEmail(user.email || "");
       setPhone(user.numberPhone || "");
 
-      const dateString = user.birthday.toString();
+      const dateString = user.birthday;
       const date = new Date(dateString);
 
       const year = date.getFullYear();

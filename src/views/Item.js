@@ -21,17 +21,17 @@ const Item = (props) => {
   return (
     <>
       {/* {console.log(data.children)} */}
-      <article class="card">
+      <article className="card">
         {/* <div class="temporary_text">Place image here</div> */}
         <img className="temporary_text" src={img}></img>
-        <div class="card_content">
-          <span class="card_title">
+        <div className="card_content">
+          <span className="card_title">
             {data.children ? data.children.name : ""}
           </span>
-          <span class="card_subtitle">
+          <span className="card_subtitle">
             {data.children ? data.children.price : 0}
           </span>
-          <p class="card_description">
+          <p className="card_description">
             {data.children ? data.children.description : ""}
           </p>
           <DetailBtn className="DetailBtn" data={data} />
@@ -40,7 +40,7 @@ const Item = (props) => {
               <BtnBuy />
             </div>
             <div className="btn-item">
-              <BtnCart />
+              <BtnCart data={props.children} />
             </div>
           </div>
         </div>

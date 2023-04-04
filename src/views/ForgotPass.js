@@ -40,17 +40,17 @@ const ForgotPass = () => {
 
   return (
     <div className="forgot-pass">
-      <div class="subscribe">
+      <div className="subscribe">
         <p>Forget Password</p>
         <input
           placeholder="Your e-mail"
-          class="subscribe-input"
+          className="subscribe-input"
           name="email"
           type="email"
           onChange={handleOnChangeInput}
         />
 
-        <div class="submit-btn" onClick={handleResetPassword}>
+        <div className="submit-btn" onClick={handleResetPassword}>
           SUBMIT
         </div>
       </div>

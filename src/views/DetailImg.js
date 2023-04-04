@@ -12,8 +12,6 @@ const DetailImg = (props) => {
 
   useEffect(async () => {
     if (props.data) {
-      // let id = props.match.params.id;
-      // console.log(props.data);
       let res = await axios.get(
         `http://localhost:8080/api/product/${props.data}/image`
       );
