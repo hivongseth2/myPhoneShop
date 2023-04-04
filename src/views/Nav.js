@@ -10,6 +10,7 @@ const Nav = () => {
       <NavLink to="/Info">Ca Nhan</NavLink>
       <NavLink to="/Shopping">Mua san pham</NavLink>
       <NavLink to="/DetailSP">Chi Tiết Sản Phẩm</NavLink>
+      <NavLink to="/Cart">Giỏ Hàng </NavLink>
     </div>
   );
 };
