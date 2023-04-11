@@ -10,6 +10,7 @@ import Information from "./Information";
 import Shopping from "./Shopping";
 import DetailItem from "./DetaiItem";
 import Cart from "./Cart";
+import CheckOut from "./CheckOut";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function App() {
@@ -45,6 +46,9 @@ function App() {
               <Cart />
             </Route>
 
+            <Route path="/CheckOut">
+              <CheckOut />
+            </Route>
           </Switch>
         </header>
         <ToastContainer

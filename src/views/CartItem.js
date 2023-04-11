@@ -6,10 +6,73 @@ import axios from "axios";
 const CartItem = (props) => {
   const [item, setItem] = useState(props.item);
   const [id, setId] = useState(props.item.product.id);
+  const [quantity, setQuantity] = useState(props.item.quantity);
   const [price, setPrice] = useState(
     props.item.quantity * props.item.product.price
   );
+
   const [img, setImg] = useState();
+
+  const accessToken = props.token;
+
+  const handleQuantityItemPlus = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/cart-item/update?id=${props.item.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            productId: id,
+            quantity: quantity + 1,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      console.log(props.item);
+      console.log(accessToken);
+      setQuantity(quantity + 1);
+      props.updateCart();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleQuantityItemMinus = async (event) => {
+    if (quantity === 0) return;
+    event.preventDefault();
+    try {
+      const response = await fetch(
+        `http://localhost:8080/api/cart-item/update?id=${props.item.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+          body: JSON.stringify({
+            productId: id,
+            quantity: quantity - 1,
+          }),
+        }
+      );
+
+      const data = await response.json();
+      console.log(data);
+      console.log(props.item);
+      console.log(accessToken);
+      setQuantity(quantity - 1);
+      props.updateCart();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(async () => {
     if (props.item) {
@@ -21,13 +84,6 @@ const CartItem = (props) => {
     }
   }, []);
 
-  const upBtn2 = () => {
-    document.getElementById("form1").stepUp(1);
-  };
-
-  const downBtn2 = () => {
-    document.getElementById("form1").stepDown(1);
-  };
   return (
     <div className="row">
       <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
@@ -73,9 +129,9 @@ const CartItem = (props) => {
       <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
         <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
           <button
-            className="btn btn-primary px-3 me-2"
-            onClick={() => {
-              downBtn2();
+            className="btn btn-primary px-3 me-3"
+            onClick={(e) => {
+              handleQuantityItemMinus(e);
             }}
           >
             <i className="fas fa-minus"></i>
@@ -86,7 +142,7 @@ const CartItem = (props) => {
               id="form2"
               min="0"
               name="quantity"
-              value={item.quantity}
+              value={quantity}
               type="number"
               className="form-control"
             />
@@ -97,8 +153,8 @@ const CartItem = (props) => {
 
           <button
             className="btn btn-primary px-3 ms-2"
-            onClick={() => {
-              upBtn2();
+            onClick={(event) => {
+              handleQuantityItemPlus(event);
             }}
           >
             <i className="fas fa-plus"></i>
