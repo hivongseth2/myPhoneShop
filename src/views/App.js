@@ -11,6 +11,8 @@ import Shopping from "./Shopping";
 import DetailItem from "./DetaiItem";
 import Cart from "./Cart";
 import CheckOut from "./CheckOut";
+import Home from "./Home";
+import IntroItem from "./IntroItem";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 function App() {
@@ -22,7 +24,7 @@ function App() {
 
           <Switch>
             <Route path="/home" exact>
-              <p> Trang chủ</p>
+              <Home />
             </Route>
             <Route path="/Register">
               <Register />

@@ -7,7 +7,6 @@ const BtnCart = (props) => {
   const accessToken = localStorage.getItem("token");
 
   const addCart = (event) => {
-    console.log(props);
     event.preventDefault();
     fetch("http://localhost:8080/api/cart-item/create", {
       method: "POST",
@@ -29,7 +28,10 @@ const BtnCart = (props) => {
       });
   };
   return (
-    <button className="btnCart" onClick={(event) => addCart(event)}>
+    <button
+      className="btn btn-primary col-12"
+      onClick={(event) => addCart(event)}
+    >
       Cart
     </button>
   );

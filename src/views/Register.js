@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import "../styles/Register.scss";
+import { Link, NavLink } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -67,100 +68,142 @@ const Register = () => {
   };
 
   return (
-    <div className="containerReg">
-      <form className="formReg">
-        <div className="item">
-          <label htmlFor="fname">First name:</label>
+    <div className="containerReg container justify-content-end col-8">
+      <button class="nav-item btn btn-primary">
+        <Link class="nav-link mx-2 text-uppercase" to="/Login">
+          <i class="fa-solid fa-circle-user me-1"></i> Account
+        </Link>
+      </button>
 
-          <input
-            type="text"
-            id="fname"
-            name="fname"
-            value={name}
-            onChange={handleChange}
-          />
+      <form className="formReg col-12">
+        <div className="row">
+          <div className="col-12">
+            <h1>REGISTER</h1>
+          </div>
         </div>
-        <div className="item">
-          <label htmlFor="uName">User Name:</label>
+        <div className="row">
+          <div className="col-6">
+            <div className="item  ">
+              <label htmlFor="fname">Full Name:</label>
 
-          <input
-            type="text"
-            id="uName"
-            name="uName"
-            value={uName}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="item">
-          <label htmlFor="sdt">Phone:</label>
+              <input
+                type="text"
+                id="fname"
+                name="fname"
+                value={name}
+                className="form-control"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="item ">
+              <label htmlFor="uName">User Name:</label>
 
-          <input
-            type="text"
-            id="phone"
-            name="phone"
-            value={phone}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="item">
-          <label htmlFor="birthday">Birthday:</label>
+              <input
+                type="text"
+                id="uName"
+                name="uName"
+                className="form-control"
+                value={uName}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          {/* <div className="col-6">
+            <div className="item ">
+              <label htmlFor="sdt">Phone:</label>
 
-          <input
-            type="birthday"
-            id="birthday"
-            name="birthday"
-            value={birthday}
-            onChange={handleChange}
-          />
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                value={phone}
+                onChange={handleChange}
+              />
+            </div>
+          </div> */}
         </div>
-        <div className="item">
-          <label htmlFor="email">Email:</label>
 
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="item">
-          <label htmlFor="password">Password:</label>
+        <div className="row">
+          <div className="col-6">
+            <div className="item">
+              <label htmlFor="birthday">Birthday:</label>
 
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={password}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="item">
-          <label htmlFor="rPassword">Re-Password:</label>
+              <input
+                type="birthday"
+                id="birthday"
+                name="birthday"
+                className="form-control"
+                value={birthday}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          {/* Thực tế thì bỏr username thay bang email */}
 
-          <input
-            type="password"
-            id="rPassword"
-            name="rPassword"
-            value={rPassword}
-            onChange={handleChange}
-          />
+          <div className="col-6">
+            <div className="item">
+              <label htmlFor="email">Email:</label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                className="form-control"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
         </div>
-        <div className="item">
-          <input
-            className="submitBtn"
-            type="submit"
-            onClick={(e) => handleSubmit(e)}
-            value="Đăng kí"
-          />
+        <div className="row">
+          <div className="col-6">
+            <div className="item">
+              <label htmlFor="password">Password:</label>
+
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                className="form-control"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="item">
+              <label htmlFor="rPassword">Re-Password:</label>
+
+              <input
+                type="password"
+                id="rPassword"
+                className="form-control"
+                name="rPassword"
+                value={rPassword}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="col"></div>
+          <div className="col"></div>
+        </div>
+
+        <div className="row">
+          <div className="col-12 pb-xl-5">
+            <div className="item">
+              <button
+                className="submitBtn btn btn-primary"
+                type="submit"
+                onClick={(e) => handleSubmit(e)}
+              >
+                Đăng ký{" "}
+              </button>
+            </div>
+          </div>
         </div>
       </form>
-      <div className="imgReg">
-        <img
-          className="img"
-          src="https://images.unsplash.com/photo-1580974928064-f0aeef70895a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGhvbmUlMjBzdG9yZXxlbnwwfHwwfHw%3D&w=1000&q=80"
-        ></img>
-      </div>
     </div>
   );
 };

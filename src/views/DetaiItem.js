@@ -4,14 +4,27 @@ import { withRouter } from "react-router-dom";
 import DetailItemDescription from "./DetailItemDescription";
 import { useEffect } from "react";
 import axios from "axios";
+import IntroItem from "./IntroItem";
+import ListItem from "./ListItem";
 
 const DetailItem = (props) => {
   return (
-    <div className="ContainerDetail">
-      <DetailImg data={props.match.params.id} />
+    <>
+      <div className="ContainerDetail container-fluid shadow-sm p-3 mb-5 bg-white rounded">
+        <div className="row">
+          <DetailImg data={props.match.params.id} />
 
-      <DetailItemDescription data={props.match.params.id} />
-    </div>
+          <DetailItemDescription data={props.match.params.id} />
+        </div>
+
+        <div className="row mt-5">
+          <IntroItem />
+        </div>
+        <div className="row mt-5">
+          <ListItem />
+        </div>
+      </div>
+    </>
 
     // <div className="detailItemInfo">
     //   <h2 className="detailItemTitle">Item title</h2>

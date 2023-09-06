@@ -14,10 +14,7 @@ const Address = () => {
           "https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1"
         );
         const data = await response.json();
-        console.log("procin" + data.data.data);
-
         setProvinces(data.data.data);
-        console.log("procin" + provinces);
       } catch (error) {
         console.error("Error fetching provinces:", error);
       }
@@ -47,7 +44,6 @@ const Address = () => {
   useEffect(() => {
     const fetchWards = async () => {
       try {
-        console.log("ward" + selectedDistrict);
         const response = await fetch(
           `https://provinces.open-api.vn/api/d/${selectedDistrict}?depth=2`
         );
@@ -66,40 +62,53 @@ const Address = () => {
   const handleProvinceChange = (event) => {
     setSelectedProvince(event.target.value);
   };
+
   const handleDistrictChange = (event) => {
-    console.log("district" + event.target.value);
     setSelectedDistrict(event.target.value);
   };
+
   return (
-    <div>
-      <select value={selectedProvince} onChange={handleProvinceChange}>
-        <option value="">--Chọn tỉnh thành--</option>
-        {provinces.map((province) => (
-          <option key={province.code} value={province.code}>
-            {province.name}
-          </option>
-        ))}
-      </select>
+    <div className="row">
+      <div className="col-12 col-md-4">
+        <select
+          value={selectedProvince}
+          onChange={handleProvinceChange}
+          className="form-select"
+        >
+          <option value="">--Chọn tỉnh thành--</option>
+          {provinces.map((province) => (
+            <option key={province.code} value={province.code}>
+              {province.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <select value={selectedDistrict} onChange={handleDistrictChange}>
-        <option value="">--Chọn quận/huyện--</option>
-        {console.log(districts)}
-        {districts.map((district) => (
-          <option key={district.code} value={district.code}>
-            {district.name}
-          </option>
-        ))}
-      </select>
+      <div className="col-12 col-md-4">
+        <select
+          value={selectedDistrict}
+          onChange={handleDistrictChange}
+          className="form-select"
+        >
+          <option value="">--Chọn quận/huyện--</option>
+          {districts.map((district) => (
+            <option key={district.code} value={district.code}>
+              {district.name}
+            </option>
+          ))}
+        </select>
+      </div>
 
-      <select>
-        <option value="">--Chọn xã--</option>
-        {console.log(wards)}
-        {wards.map((ward) => (
-          <option key={ward.code} value={ward.code}>
-            {ward.name}
-          </option>
-        ))}
-      </select>
+      <div className="col-12 col-md-4">
+        <select className="form-select">
+          <option value="">--Chọn xã--</option>
+          {wards.map((ward) => (
+            <option key={ward.code} value={ward.code}>
+              {ward.name}
+            </option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 };

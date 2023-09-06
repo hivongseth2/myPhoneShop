@@ -15,12 +15,17 @@ const DetailImg = (props) => {
       let res = await axios.get(
         `http://localhost:8080/api/product/${props.data}/image`
       );
+
       setActiveImg(res.config.url);
+
+      //useEffect có ảnh hưởng tới active => bỏ tham số đi
     }
-  }, [activeImg]);
+    // }, [activeImg]);
+  }, []);
   const handleActive = (index, event) => {
     setActiveIndex(index);
     setActiveImg(event.target.src);
+
     imageListRef.current.children[index].scrollIntoView({
       behavior: "smooth",
       block: "nearest",
@@ -73,14 +78,14 @@ const DetailImg = (props) => {
 
           <ul className="itemChild" ref={imageListRef}>
             <li
-              className={`img ${activeIndex === 0 ? "active" : ""}`}
+              className={`img ${activeIndex === 0 ? "activeImg" : ""}`}
               onClick={(event) => handleActive(0, event)}
             >
               <img src={activeImg} alt="item" />
             </li>
 
             <li
-              className={`img ${activeIndex === 1 ? "active" : ""}`}
+              className={`img ${activeIndex === 1 ? "activeImg" : ""}`}
               onClick={(event) => handleActive(1, event)}
             >
               <img
@@ -89,7 +94,7 @@ const DetailImg = (props) => {
               />
             </li>
             <li
-              className={`img ${activeIndex === 2 ? "active" : ""}`}
+              className={`img ${activeIndex === 2 ? "activeImg" : ""}`}
               onClick={(event) => handleActive(2, event)}
             >
               <img
@@ -98,7 +103,7 @@ const DetailImg = (props) => {
               />
             </li>
             <li
-              className={`img ${activeIndex === 3 ? "active" : ""}`}
+              className={`img ${activeIndex === 3 ? "activeImg" : ""}`}
               onClick={(event) => handleActive(3, event)}
             >
               <img
@@ -108,7 +113,7 @@ const DetailImg = (props) => {
             </li>
 
             <li
-              className={`img ${activeIndex === 4 ? "active" : ""}`}
+              className={`img ${activeIndex === 4 ? "activeImg" : ""}`}
               onClick={(event) => handleActive(4, event)}
             >
               <img
@@ -117,7 +122,7 @@ const DetailImg = (props) => {
               />
             </li>
             <li
-              className={`img ${activeIndex === 5 ? "active" : ""}`}
+              className={`img ${activeIndex === 5 ? "activeImg" : ""}`}
               onClick={(event) => handleActive(5, event)}
             >
               <img

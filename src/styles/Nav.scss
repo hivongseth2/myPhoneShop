@@ -24,3 +24,32 @@
     background-color: #084bb1;
     color: white;
   }
+
+  a {
+    font-size: 14px;
+    font-weight: 700;
+  
+   
+  }
+
+ 
+  
+    .superNav {
+      font-size:13px;
+    }
+    .form-control {
+      outline:none !important;
+      box-shadow: none !important;
+    }
+    @media screen and (max-width:540px){
+      .centerOnMobile {
+        text-align:center
+      }
+    }
+
+    .active{
+      font-size: 14px;
+      font-weight: 700;
+      color: #02db14;
+      border-color: #084bb1;
+    }

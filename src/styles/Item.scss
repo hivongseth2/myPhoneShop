@@ -1,13 +1,16 @@
 .card {
     position: relative;
-    width: 360px;
-    height: 400px;
+    width: 100%;
+    height: 490px;
     color: #2e2d31;
     background-color: rgba(210, 236, 253, 0.1);
     overflow: hidden;
-    border-radius: 20px;
+    border-radius: 5px;
     border: none;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;  }
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px; 
+    max-width: 360px;
+  
+  }
   
   .temporary_text {
     // font-weight: bold;
@@ -23,6 +26,9 @@
   
   .card_title {
     font-weight: bold;
+    text-overflow: ellipsis;
+    height:300px;
+
   
   }
   
@@ -55,7 +61,7 @@
     top: -50px;
     right: -50px;
     width: 80px;
-    height: 100px;
+  
     transform: rotate(-177deg);
     border-radius: 50%;
     box-shadow: inset 47px 47px #f2f2f2;
@@ -64,8 +70,11 @@
   .card_title {
     color: #131313;
     position: relative;
-    top: -35px;
-    line-height: 14px;
+    display: block;
+    font-size: 1.1em;
+   height:50px;
+    overflow: hidden;
+    top:-1em;
   }
   
   .card_subtitle {
@@ -74,7 +83,7 @@
     margin-bottom: 10px;
     color: rgb(199, 31, 9);
     position: relative;
-    top: -35px;
+    text-align:center;
     font-weight: 700;
     
   }
@@ -82,22 +91,25 @@
   .card_description {
     font-size: 14px;
     opacity: 0;
-    max-height:200px;
+    height:180px;
     transition: opacity .5s;
+    text-overflow:ellipsis;
     // display: block;
+    
    
   }
   
-  .card:hover .card_title {
-   top: 0px;
-    font-weight: bolder;
+  // .card:hover .card_title {
+  //  top: 0px;
+  //   font-weight: bolder;
     
-  }
-  .card:hover .card_subtitle {
-    top: 0px;
-     font-weight: bolder;
+    
+  // }
+  // .card:hover .card_subtitle {
+  //   top: 0px;
+  //    font-weight: bolder;
      
-   }
+  //  }
   .card:hover .card_content {
     transform: translateY(0);
     font-weight: bolder;
@@ -119,12 +131,12 @@
     opacity: 1;
     transition-delay: .25s;
     font-weight: 500;
-    height:100%;
-    text-rendering: optimizeLegibility;
-    overflow: hidden;
+    height:180px;
+    overflow: auto;
+    text-align: justify;
+
       
-    text-overflow: ellipsis;
-    white-space: pre-line;
+
     
   }
 

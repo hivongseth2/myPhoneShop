@@ -75,10 +75,13 @@ const Cart = () => {
   //Return
   return (
     <section className="h-100 gradient-custom">
-      <div className="container py-5">
-        <div className="row d-flex justify-content-center my-1">
+      <div className="container-xxl py-5">
+        <div className="row container-lg">
           <div className="col-md-8">
-            <div className="card mb-4 item">
+            <div
+              className="card mb-4 item"
+              style={{ width: "45em", maxWidth: "50em" }}
+            >
               <div className="card-header">
                 <h5 className="mb-0">Cart - {cart.length} item</h5>
               </div>
@@ -109,8 +112,11 @@ const Cart = () => {
           </div>
 
           {/* ============================= Total */}
-          <div className="col-md-4 mr-4 bb">
-            <div className="card mb-4">
+          <div className="col-md-4">
+            <div
+              className="card mb-4 "
+              style={{ width: "25em", maxWidth: "25em" }}
+            >
               <div className="card-header py-3">
                 <h5 className="mb-0">Summary</h5>
               </div>

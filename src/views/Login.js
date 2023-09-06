@@ -1,6 +1,8 @@
 import "../styles/Login.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { toast } from "react-toastify";
+import { Link, NavLink } from "react-router-dom";
+
 import { useHistory } from "react-router-dom";
 
 import { useState } from "react";
@@ -52,27 +54,27 @@ const Login = () => {
   };
 
   return (
-    <form className="col-8 offset-2 fs-6 container">
-      <div className="left">
+    <form className="col-8 offset-2 fs-6s container bgLogin">
+      <div className="left col-8">
         <h2>Sign In</h2>
         <div className="mb-3 p">
-          <label>Email address</label>
+          <label className="lbInput">Email address</label>
           <input
             type="email"
             className="form-control inputEmail "
-            placeholder="Enter email"
+            placeholder="User@gmail.com"
             name="email"
             value={email}
             onChange={(e) => handleOnChangeInput(e)}
           />
         </div>
         <div className="mb-3 ">
-          <label>Password</label>
+          <label className="lbInput">Password</label>
           <input
             type="password"
             className="form-control inputPassword"
             name="password"
-            placeholder="Enter password"
+            placeholder="*******"
             value={password}
             onChange={(e) => handleOnChangeInput(e)}
           />
@@ -93,10 +95,10 @@ const Login = () => {
             </label>
           </div>
         </div>
-        <div className="d-grid">
+        <div className="d-grid mb-3">
           <button
             type="submit"
-            className="btn btn-primary col-4 mx-auto"
+            className="btn btn-primary col-12 mx-auto"
             onClick={(e) => handleSignIn(e)}
           >
             Submit
@@ -105,6 +107,13 @@ const Login = () => {
         <p className="forgot-password text-right">
           Forgot <a href="#">password?</a>
         </p>
+      </div>
+      <div className="right">
+        <button class="nav-item btn btn-primary">
+          <Link class="nav-link mx-2 text-uppercase" to="/Register">
+            Register
+          </Link>
+        </button>
       </div>
     </form>
   );

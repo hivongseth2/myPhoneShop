@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import CheckoutItem from "./CheckoutItem";
 import Address from "./Address";
+import FormCheckOut from "./FormCheckOut";
 const CheckOut = () => {
   const [cart, setCart] = useState([]);
 
@@ -58,64 +59,59 @@ const CheckOut = () => {
     }
   }, []);
   return (
-    <div className="container">
-      {cart.length > 0 ? (
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Tên sản phẩm</th>
-              <th scope="col">Hình ảnh</th>
-              <th scope="col">Số lượng</th>
-              <th scope="col">Thành tiền</th>
-            </tr>
-          </thead>
-          <tbody>
-            {cart.length > 0 &&
-              cart.map((item, index) => {
-                return item.quantity !== 0 ? (
-                  // <tr key={index}>
-                  //   <th scope="row">{index}</th>
-                  //   <td>{item.product.name}</td>
-                  //   <td>{item.quantity}</td>
-                  //   <td>{item.quantity * item.product.price}</td>
-                  // </tr>
-                  <CheckoutItem data={item} index={index} />
-                ) : null;
-              })}
+    <div className="container-lg mt-1 bg-white rounded">
+      <div className="row">
+        {cart.length > 0 ? (
+          <div className="col-12">
+            <div className="row">
+              <div className="col-md-7 col-lg-7">
+                <h4 className="mb-3">Tiến hành thanh toán</h4>
+                <form className="needs-validation" noValidate>
+                  <FormCheckOut />
+                </form>
+              </div>
+              <div className="col-md-5 col-lg-5">
+                <div className="shadow bg-white rounded">
+                  <table className="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tên sản phẩm</th>
+                        <th scope="col">Hình ảnh</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Thành tiền</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {cart.length > 0 &&
+                        cart.map((item, index) => {
+                          return item.quantity !== 0 ? (
+                            <CheckoutItem data={item} index={index} />
+                          ) : null;
+                        })}
 
-            <tr className="sum">
-              <th scope="total">Thành tiền</th>
-              <td></td>
-              <td></td>
-              <th>{total}</th>
-            </tr>
-          </tbody>
-        </table>
-      ) : (
-        <div>Không có sản phẩm nào trong giỏ hàng</div>
-      )}
-
-      {/* =============== */}
-
-      <table class="table">
-        <tbody>
-          <tr>
-            <th scope="row">Họ tên</th>
-            <td>Mark</td>
-          </tr>
-          <tr>
-            <th scope="row">Số điện thoại</th>
-            <td>Jacob</td>
-          </tr>
-          <tr>
-            <th scope="row">Địa chỉ </th>
-            <td>
-              <Address />
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                      <tr className="sum">
+                        <th scope="total">Thành tiền</th>
+                        <td></td>
+                        <td></td>
+                        <td>{quantity}</td>
+                        <th>{total}</th>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div className="row">
+              <button className="w-100 btn btn-danger btn-lg" type="submit">
+                Continue to checkout
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="col-12">Không có sản phẩm nào trong giỏ hàng</div>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,12 +1,18 @@
 import "../styles/Item.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useHistory, useLocation } from "react-router-dom";
+
+import Filter from "./Filter";
 import BtnBuy from "./BtnBuy";
 import BtnCart from "./BtnCart";
-import DetailBtn from "./DetailBtn";
+
 const Item = (props) => {
   const [data, setData] = useState(props);
   const [img, setImg] = useState();
+  const history = useHistory();
+
+  // useEffect lấy ảnh all
 
   useEffect(async () => {
     if (props) {
@@ -18,28 +24,53 @@ const Item = (props) => {
     }
   }, [props]);
 
+  const handleView = () => {
+    const currentPath = window.location.pathname;
+    const newPath = `/Shopping/${data.children.id}`;
+
+    if (currentPath.match(/\/Shopping\/\d+/)) {
+      const updatedPath = currentPath.replace(/\/Shopping\/\d+/, newPath);
+      window.location.href = `${window.location.origin}${updatedPath}`;
+    } else {
+      history.push(newPath);
+    }
+  };
+
   return (
     <>
-      {/* {console.log(data.children)} */}
-      <article className="card">
-        {/* <div class="temporary_text">Place image here</div> */}
-        <img className="temporary_text" src={img}></img>
+      <article className="card ">
+        <img
+          className="temporary_text"
+          src={img}
+          onClick={() => handleView()}
+        ></img>
         <div className="card_content">
-          <span className="card_title">
+          <span className="card_title" onClick={() => handleView()}>
             {data.children ? data.children.name : ""}
           </span>
-          <span className="card_subtitle">
-            {data.children ? data.children.price : 0}
-          </span>
-          <p className="card_description">
+
+          <p className="card_description" onClick={() => handleView()}>
             {data.children ? data.children.description : ""}
           </p>
-          <DetailBtn className="DetailBtn" data={data} />
-          <div className="button">
-            <div className="btn-item">
-              <BtnBuy />
+
+          <div className="d-flex flex-column " style={{ marginTop: "4em" }}>
+            <span className="card_subtitle row" onClick={() => handleView()}>
+              <span
+                style={{
+                  color: "black",
+                  fontStyle: "italic",
+                  fontWeight: "normal",
+                }}
+              >
+                Giá chỉ:{" "}
+              </span>{" "}
+              {data.children ? data.children.price : 0} <span>VND </span>
+            </span>
+            <div className="row mb-2">
+              <button className="btn btn-primary col-12 ">Mua</button>
             </div>
-            <div className="btn-item">
+
+            <div className="row">
               <BtnCart data={props.children} />
             </div>
           </div>
