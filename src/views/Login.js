@@ -1,5 +1,6 @@
 import "../styles/Login.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { CustomFetch } from "../utils/CustomFetch";
 import { toast } from "react-toastify";
 import { Link, NavLink } from "react-router-dom";
 
@@ -24,31 +25,29 @@ const Login = () => {
   const handleSignIn = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:8080/api/account/login", {
+      const response = await fetch("http://localhost:8521/api/v1/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username: email,
-          password: password,
+          email: email,
+          passWordA: password,
         }),
       });
 
-      const data = await response.json();
-      console.log(data.errorCode);
-      if (data.errorCode !== undefined) {
-        toast.error(data.message);
-        // alert(data.message);
-        return;
-      }
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data));
-      history.push("/Info", { user: data });
-
-      toast.success(`Chào mừng ${data.fullName} đã quay trở lại!`);
+      const data = await response.text();
       console.log(data);
+
+      // if (data.errorCode !== undefined) {
+      //   toast.error(data.message);
+
+      //   return;
+      // }
+
+      toast.success(`Chào mừng  đã quay trở lại!`);
     } catch (error) {
+      console.log(error.message);
       setError(error.message);
     }
   };
@@ -109,11 +108,11 @@ const Login = () => {
         </p>
       </div>
       <div className="right">
-        <button class="nav-item btn btn-primary">
-          <Link class="nav-link mx-2 text-uppercase" to="/Register">
-            Register
-          </Link>
-        </button>
+        {/* <button class="nav-item btn btn-primary"> */}
+        <Link class="nav-item btn btn-primary" to="/Register">
+          Register
+        </Link>
+        {/* </button> */}
       </div>
     </form>
   );

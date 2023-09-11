@@ -1,29 +1,17 @@
 import { useRef, useState } from "react";
 import "../styles/Register.scss";
-import { Link, NavLink } from "react-router-dom";
+import { toast } from "react-toastify";
 
+import { Link, NavLink } from "react-router-dom";
+import axios from "axios";
 const Register = () => {
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [uName, setUName] = useState("");
-  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
   const [rPassword, setRPassword] = useState("");
-  const [birthday, setBirthday] = useState("");
 
   const handleChange = (event) => {
-    // name = e.target.classList.contains("inputEmail")
     const { name, value } = event.target;
     switch (name) {
-      case "fname":
-        setName(value);
-        break;
-      case "uName":
-        setUName(value);
-        break;
-      case "phone":
-        setPhone(value);
-        break;
       case "email":
         setEmail(value);
         break;
@@ -33,9 +21,7 @@ const Register = () => {
       case "rPassword":
         setRPassword(value);
         break;
-      case "birthday":
-        setBirthday(value);
-        break;
+
       default:
         break;
     }
@@ -44,108 +30,54 @@ const Register = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    fetch("http://localhost:8080/api/account/register", {
+    if (password !== rPassword) {
+      toast.error("Mật khẩu và xác nhận mật khẩu không giống nhau.");
+      return;
+    }
+
+    fetch("http://localhost:8521/api/v1/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        birthday: birthday,
         email: email,
-        fullnName: name,
-        password: password,
-        phoneNumber: phone,
-        username: uName,
+        passWordA: password,
+        enable: true,
+        roles: [{ id: 1 }],
       }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        toast.success(`Chúc mừng bạn đã đăng ký thành công!`);
       })
       .catch((error) => {
         console.error(error);
+        toast.error(error);
       });
   };
 
   return (
     <div className="containerReg container justify-content-end col-8">
-      <button class="nav-item btn btn-primary">
-        <Link class="nav-link mx-2 text-uppercase" to="/Login">
-          <i class="fa-solid fa-circle-user me-1"></i> Account
-        </Link>
-      </button>
+      <Link class="nav-item btn btn-primary" to="/Login">
+        {/* <Link class="nav-link mx-2 text-uppercase" to="/Login"> */}
+        <i class="fa-solid fa-circle-user me-1"></i> Account
+        {/* </Link> */}
+      </Link>
 
-      <form className="formReg col-12">
+      <form className="formReg col-8 offset-2 fs-6s ">
         <div className="row">
           <div className="col-12">
-            <h1>REGISTER</h1>
+            <h3>REGISTER</h3>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-6">
-            <div className="item  ">
-              <label htmlFor="fname">Full Name:</label>
-
-              <input
-                type="text"
-                id="fname"
-                name="fname"
-                value={name}
-                className="form-control"
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          <div className="col-6">
-            <div className="item ">
-              <label htmlFor="uName">User Name:</label>
-
-              <input
-                type="text"
-                id="uName"
-                name="uName"
-                className="form-control"
-                value={uName}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          {/* <div className="col-6">
-            <div className="item ">
-              <label htmlFor="sdt">Phone:</label>
-
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                value={phone}
-                onChange={handleChange}
-              />
-            </div>
-          </div> */}
         </div>
 
         <div className="row">
-          <div className="col-6">
+          <div className="col-12">
             <div className="item">
-              <label htmlFor="birthday">Birthday:</label>
-
-              <input
-                type="birthday"
-                id="birthday"
-                name="birthday"
-                className="form-control"
-                value={birthday}
-                onChange={handleChange}
-              />
-            </div>
-          </div>
-          {/* Thực tế thì bỏr username thay bang email */}
-
-          <div className="col-6">
-            <div className="item">
-              <label htmlFor="email">Email:</label>
-
+              <label htmlFor="email" className="lbInput">
+                Email:
+              </label>
               <input
                 type="email"
                 id="email"
@@ -153,15 +85,17 @@ const Register = () => {
                 value={email}
                 className="form-control"
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
         </div>
         <div className="row">
-          <div className="col-6">
+          <div className="col-12">
             <div className="item">
-              <label htmlFor="password">Password:</label>
-
+              <label htmlFor="password" className="lbInput">
+                Password:
+              </label>
               <input
                 type="password"
                 id="password"
@@ -169,13 +103,16 @@ const Register = () => {
                 value={password}
                 className="form-control"
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
-          <div className="col-6">
+          <div />
+          <div className="col-12">
             <div className="item">
-              <label htmlFor="rPassword">Re-Password:</label>
-
+              <label htmlFor="rPassword" className="lbInput">
+                Re-Password:
+              </label>
               <input
                 type="password"
                 id="rPassword"
@@ -183,6 +120,7 @@ const Register = () => {
                 name="rPassword"
                 value={rPassword}
                 onChange={handleChange}
+                required
               />
             </div>
           </div>
@@ -198,7 +136,7 @@ const Register = () => {
                 type="submit"
                 onClick={(e) => handleSubmit(e)}
               >
-                Đăng ký{" "}
+                Đăng ký
               </button>
             </div>
           </div>

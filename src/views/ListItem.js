@@ -22,7 +22,9 @@ const ListItem = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        let res = await axios.get("http://localhost:8080/api/product/views");
+        let res = await axios.get(
+          "http://localhost:8521/api/v1/products/getAll"
+        );
         let data = res && res.data ? res.data : [];
         setDataPhone(data);
       } catch (error) {

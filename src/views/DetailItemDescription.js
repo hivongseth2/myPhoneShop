@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../styles/DetailItemDescription.scss";
 import { useEffect } from "react";
 import axios from "axios";
+import FormatDate from "../utils/FormatDate";
 
 const DetailItemDescription = (props) => {
   const [dataDes, setDataDes] = useState();
@@ -9,7 +10,7 @@ const DetailItemDescription = (props) => {
   useEffect(async () => {
     if (props.data) {
       let res = await axios.get(
-        `http://localhost:8080/api/product/${props.data}`
+        `http://localhost:8521/api/v1/products/getById/${props.data}`
       );
       setDataDes(res);
       console.log(res);
@@ -21,21 +22,25 @@ const DetailItemDescription = (props) => {
         <tbody>
           <tr>
             <th className="title" colSpan="3">
-              {dataDes && dataDes.data ? dataDes.data.name : ""}
+              {dataDes && dataDes.data ? dataDes.data.productName : ""}
             </th>
           </tr>
           <tr className="brand" colSpan="3">
             <th className="name">
               {`Thương hiệu: ${
-                dataDes && dataDes.data ? dataDes.data.brand.name : ""
+                dataDes && dataDes.data ? dataDes.data.brand : ""
               }`}
             </th>
             <th className="stock">
-              {`Số lượng: ${dataDes && dataDes.data ? dataDes.data.stock : ""}`}
+              {`Số lượng: ${
+                dataDes && dataDes.data ? dataDes.data.quantity : ""
+              }`}
             </th>
             <th className="creat">
               {`Ngày mở bán: ${
-                dataDes && dataDes.data ? dataDes.data.brand.createdDate : ""
+                dataDes && dataDes.data
+                  ? FormatDate(dataDes.data.importDate)
+                  : ""
               }`}
             </th>
           </tr>

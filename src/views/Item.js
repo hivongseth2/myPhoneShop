@@ -16,10 +16,14 @@ const Item = (props) => {
 
   useEffect(async () => {
     if (props) {
-      const res = await axios.get(
-        `http://localhost:8080/api/product/${props.children.id}/image`
+      // const res = await axios.get(
+      //   `http://localhost:8080/api/product/${props.children.id}/image`
+      // );
+
+      // setImg(res.config.url);
+      setImg(
+        "https://media.istockphoto.com/id/936182806/vi/vec-to/kh%C3%B4ng-c%C3%B3-d%E1%BA%A5u-hi%E1%BB%87u-h%C3%ACnh-%E1%BA%A3nh-kh%E1%BA%A3-d%E1%BB%A5ng.jpg?s=612x612&w=0&k=20&c=AqTYDe8XDlTT4HlkKmWrI57391QNOV0zZeC7u8TKYiE="
       );
-      setImg(res.config.url);
       setData(props);
     }
   }, [props]);
@@ -28,8 +32,8 @@ const Item = (props) => {
     const currentPath = window.location.pathname;
     const newPath = `/Shopping/${data.children.id}`;
 
-    if (currentPath.match(/\/Shopping\/\d+/)) {
-      const updatedPath = currentPath.replace(/\/Shopping\/\d+/, newPath);
+    if (currentPath.match(/\/Shopping\/SP\d{4}/)) {
+      const updatedPath = currentPath.replace(/\/Shopping\/SP\d{4}/, newPath);
       window.location.href = `${window.location.origin}${updatedPath}`;
     } else {
       history.push(newPath);
@@ -44,16 +48,21 @@ const Item = (props) => {
           src={img}
           onClick={() => handleView()}
         ></img>
-        <div className="card_content">
-          <span className="card_title" onClick={() => handleView()}>
-            {data.children ? data.children.name : ""}
+        <div className="card_content" style={props.style ? props.style[1] : {}}>
+          <span
+            className="card_title"
+            onClick={() => handleView()}
+            style={props.style ? props.style[0] : {}}
+          >
+            {console.log(data)}
+            {data.children ? data.children.productName : ""}
           </span>
 
           <p className="card_description" onClick={() => handleView()}>
             {data.children ? data.children.description : ""}
           </p>
 
-          <div className="d-flex flex-column " style={{ marginTop: "4em" }}>
+          <div className="d-flex flex-column ">
             <span className="card_subtitle row" onClick={() => handleView()}>
               <span
                 style={{
