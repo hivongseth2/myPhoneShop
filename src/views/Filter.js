@@ -28,29 +28,29 @@ const Filter = () => {
       className="container-xs shadow-none p-3 mb-5 bg-body-tertiary rounded"
       style={{ color: "#333" }}
     >
-      <div class="d-flex flex-column bd-highlight mb-3">
-        <div class="p-2 bd-highlight shadow p-3 mb-2 bg-body-tertiary rounded">
+      <div className="d-flex flex-column bd-highlight mb-3">
+        <div className="p-2 bd-highlight shadow p-3 mb-2 bg-body-tertiary rounded">
           Thương hiệu
-          <div class="form-check">
-            <div class="form-check">
+          <div className="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 value=""
                 id="flexCheckDefault"
               />
-              <label class="form-check-label" for="flexCheckDefault">
+              <label className="form-check-label" htmlFor="flexCheckDefault">
                 Laptop Acer
               </label>
             </div>
-            <div class="form-check">
+            <div className="form-check">
               <input
-                class="form-check-input"
+                className="form-check-input"
                 type="checkbox"
                 value=""
                 id="flexCheckChecked"
               />
-              <label class="form-check-label" for="flexCheckChecked">
+              <label className="form-check-label" htmlFor="flexCheckChecked">
                 Laptop Asus
               </label>
             </div>
@@ -85,32 +85,32 @@ const Filter = () => {
       </div>
 
       <div className="rangePrice p-2 bd-highlight shadow p-3 mb-2 bg-body-tertiary rounded">
-        <label for="customRange3" class="form-label">
+        <label htmlFor="customRange3" className="form-label">
           Khoảng giá
         </label>
-        <div class="d-flex flex-row">
+        <div className="d-flex flex-row">
           {/* ============= */}
-          <div class="input-group mb-3 mx-3 ">
-            <span class="input-group-text">Từ</span>
+          <div className="input-group mb-3 mx-3 ">
+            <span className="input-group-text">Từ</span>
 
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               aria-label="Amount (to the nearest dollar)"
             />
-            <span class="input-group-text">VND</span>
+            <span className="input-group-text">VND</span>
           </div>
           {/* ============ */}
 
-          <div class="input-group mb-3 mx-1">
-            <span class="input-group-text">Đến</span>
+          <div className="input-group mb-3 mx-1">
+            <span className="input-group-text">Đến</span>
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               aria-label="Amount (to the nearest dollar)"
             />
 
-            <span class="input-group-text">VND</span>
+            <span className="input-group-text">VND</span>
           </div>
         </div>
       </div>

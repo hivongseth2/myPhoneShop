@@ -18,7 +18,7 @@ const DetailItem = (props) => {
         </div>
 
         <div className="row mt-5">
-          <IntroItem />
+          <IntroItem data={props.match.params.id} />
         </div>
         <div className="row mt-5">
           <ListItem />

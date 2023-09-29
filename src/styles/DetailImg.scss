@@ -5,23 +5,20 @@
     width: 40%;
     float: left;
     margin-top: 2.5em;
-    margin-left: 5%;
+    padding: 3em;
+    margin-left: 2em;
     background-color:rgba(222, 238, 253, 0.432);
     display: flex;
      justify-content: center;
     align-items: center;
+    width:auto;
     .detailImg
     {
         img
         {
-           
-           width: 600px;
-           height: 600px;
+           width: 35em;
+           height:35em;
             object-fit:cover;
-
-            
-        
-        
         }
         
         
@@ -40,7 +37,7 @@
             {	
                 display: inline;
                 position:relative;
-               margin-left: -35px;
+               margin-left: -4em;
                top:-350px;
                 
                 border-radius: 100%;
@@ -53,7 +50,7 @@
             .btnPre
             {
                 float: right;
-                right: -20px;
+                right: -4em;
             }
             .btnNext{
                 float: left;

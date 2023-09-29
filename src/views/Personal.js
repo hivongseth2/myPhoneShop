@@ -1,20 +1,37 @@
-import { useState } from "react";
-import "../styles/Register.scss";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { CustomFetch } from "../utils/CustomFetch";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import "../styles/Personal.scss";
+import { Link, NavLink } from "react-router-dom";
 
-const Register = () => {
+import FormatDate2Input from "../utils/FormatDate2Input";
+import { useHistory } from "react-router-dom";
+
+import { useEffect, useState } from "react";
+const Personal = () => {
+  const history = useHistory();
+  const [user, setUser] = useState();
+  const [flag, setFlag] = useState();
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [rPassword, setRPassword] = useState("");
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthDay, setBirthDay] = useState("");
   const [address, setAddress] = useState("");
   const [sex, setSex] = useState(0);
   const [phone, setPhone] = useState("");
+  const [id, setId] = useState("");
+  const [account, setAccount] = useState();
+  // ==========================================
 
+  const SignOut = () => {
+    localStorage.removeItem("data");
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    history.push("/login");
+  };
+  //   ======
   const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
@@ -39,76 +56,77 @@ const Register = () => {
       case "sex":
         setSex(value);
         break;
-      case "password":
-        setPassword(value);
-        break;
-      case "rPassword":
-        setRPassword(value);
-        break;
+
       default:
         break;
     }
   };
+  //   ===================================
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (password !== rPassword) {
-      toast.error("Mật khẩu và xác nhận mật khẩu không giống nhau.");
-      return;
-    }
+    const customerData = {
+      id: id,
+      firstName,
+      lastName,
+      email,
+      dateOfBirth: birthDay,
+      sex: parseInt(sex),
+      phone,
+      address,
+      account,
+      customerType: "customer",
+      avatar: null,
+    };
 
+    console.log(customerData);
     axios
-      .post("http://localhost:8521/api/v1/auth/register", {
-        email: email,
-        passWordA: password,
-        enable: true,
-        roles: [{ id: 1 }],
-      })
+      .post(
+        "http://localhost:8521/api/v1/customer/createOrUpdate",
+        customerData
+      )
       .then((response) => {
-        const account = response.data;
-        const customerData = {
-          id: "1222",
-          firstName,
-          lastName,
-          email,
-          dateOfBirth: null,
-          sex: parseInt(sex),
-          phone,
-          address,
-          account,
-          customerType: "customer",
-          avatar: null,
-        };
+        // Xử lý khi tạo khách hàng thành công
+        console.log("Khách hàng đã được tạo:", response.data);
+        localStorage.setItem("data", JSON.stringify(response.data));
+        setFlag(!flag);
 
-        console.log(customerData);
-        axios
-          .post(
-            "http://localhost:8521/api/v1/customer/createOrUpdate",
-            customerData
-          )
-          .then((response) => {
-            // Xử lý khi tạo khách hàng thành công
-            console.log("Khách hàng đã được tạo:", response.data);
-            toast.success(`Chúc mừng bạn đã đăng ký thành công!`);
-          })
-          .catch((error) => {
-            // Xử lý khi có lỗi xảy ra
-            console.error("Lỗi khi tạo khách hàng:", error);
-          });
+        toast.success(`Cập nhật thành công`);
       })
       .catch((error) => {
-        console.error(error);
-        toast.error(error.response.data.message || "Đã có lỗi xảy ra.");
+        // Xử lý khi có lỗi xảy ra
+        toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
       });
   };
 
+  //   ===========================
+
+  useEffect(() => {
+    const temp = JSON.parse(localStorage.getItem("data"));
+    setUser(temp);
+    if (temp) {
+      // Nếu có dữ liệu từ người dùng đã có
+      setEmail(temp.email || "");
+      setFirstName(temp.firstName || "");
+      setLastName(temp.lastName || "");
+      setBirthDay(FormatDate2Input(temp.dateOfBirth) || "");
+
+      setAddress(temp.address || "");
+      setSex(temp.sex.toString() || "0");
+      setPhone(temp.phone || "");
+      setAccount(temp.account);
+      setId(temp.id);
+    }
+    console.log(birthDay);
+  }, [flag]);
+  //   ========
   return (
-    <div className="containerReg container justify-content-center col-8">
-      <form className="formReg col-12  fs-8s pb-xl-5 ">
+    <div className="containerPerson">
+      <div className="containerChild ">
         <div className="row">
           <div className="col-12">
-            <h3>REGISTER</h3>
+            <h3>Hồ Sơ Của Tôi</h3>
           </div>
         </div>
         <div className="row">
@@ -251,65 +269,42 @@ const Register = () => {
         </div>
 
         <div className="row">
-          <div className="col-6">
-            <div className="item">
-              <label htmlFor="rPassword" className="lbInput">
-                Re-Password:
-              </label>
-              <input
-                type="password"
-                id="rPassword"
-                className="form-control"
-                name="rPassword"
-                value={rPassword}
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="col-6">
-            <div className="item">
-              <label htmlFor="password" className="lbInput">
-                Password:
-              </label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={password}
-                className="form-control"
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div />
-        </div>
-
-        <div className="row">
-          <div className="col-12 pb-xl-2">
+          <div className="col-12 pt-xl-3">
             <div className="item">
               <button
                 className="submitBtn btn btn-primary"
                 type="submit"
                 onClick={(e) => handleSubmit(e)}
               >
-                Đăng ký
+                cập nhật
               </button>
             </div>
           </div>
         </div>
+      </div>
+      <div className="ContainerAvatar">
+        <img
+          className="imgItem"
+          src={
+            user && user.avatar
+              ? user.avatar.imageLink
+              : "https://lagrotteduyeti.com/wp-content/themes/themify-music/themify/img/non-skin.gif"
+          }
+          alt="Avatar"
+        />
+        <div className="btnAvatar">
+          <button type="button" class="btn btn-secondary">
+            Chọn ảnh
+          </button>
+        </div>
+      </div>
 
-        <Link class="nav-item btn btn-primary col-12" to="/Login">
-          {/* <Link class="nav-link mx-2 text-uppercase" to="/Login"> */}
-          <i class="fa-solid fa-circle-user me-1"></i> Đi đến trang đăng nhập
-          {/* </Link> */}
-        </Link>
-      </form>
+      <div className="ContainerOut">
+        <button type="button" class="btn btn-danger" onClick={() => SignOut()}>
+          Đăng xuất
+        </button>
+      </div>
     </div>
   );
 };
-
-export default Register;
+export default Personal;

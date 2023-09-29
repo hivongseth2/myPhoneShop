@@ -2,6 +2,7 @@ import "../styles/Login.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CustomFetch } from "../utils/CustomFetch";
 import { toast } from "react-toastify";
+import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
 
 import { useHistory } from "react-router-dom";
@@ -19,42 +20,48 @@ const Login = () => {
     } else {
       setPassWord(e.target.value);
     }
-    console.log(email, password);
   };
 
   const handleSignIn = async (event) => {
     event.preventDefault();
+
+    const formData = {
+      email: email,
+      passWordA: password,
+    };
+
     try {
-      const response = await fetch("http://localhost:8521/api/v1/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-          passWordA: password,
-        }),
-      });
+      const response = axios.post(
+        "http://localhost:8521/api/v1/auth/login",
+        formData
+      );
 
-      const data = await response.text();
+      const data = await response;
+
+      if (data.data) {
+        localStorage.setItem("data", JSON.stringify(data.data));
+        localStorage.setItem("token", JSON.stringify(data.data.token));
+        toast.success(`Chào mừng  đã quay trở lại!`);
+        history.push("/home");
+      }
+
       console.log(data);
-
       // if (data.errorCode !== undefined) {
       //   toast.error(data.message);
 
       //   return;
-      // }
 
-      toast.success(`Chào mừng  đã quay trở lại!`);
+      // }
     } catch (error) {
       console.log(error.message);
       setError(error.message);
+      toast.error(`sai tài khoản hoặc mật khẩu!`);
     }
   };
 
   return (
-    <form className="col-8 offset-2 fs-6s container bgLogin">
-      <div className="left col-8">
+    <form className="col-8 offset-2  container justify-content-center bgLogin">
+      <div className="col-12">
         <h2>Sign In</h2>
         <div className="mb-3 p">
           <label className="lbInput">Email address</label>
@@ -106,14 +113,14 @@ const Login = () => {
         <p className="forgot-password text-right">
           Forgot <a href="#">password?</a>
         </p>
-      </div>
-      <div className="right">
-        {/* <button class="nav-item btn btn-primary"> */}
-        <Link class="nav-item btn btn-primary" to="/Register">
+        <Link class="nav-item btn btn-primary col-12" to="/Register">
           Register
         </Link>
-        {/* </button> */}
       </div>
+
+      {/* <button class="nav-item btn btn-primary"> */}
+
+      {/* </button> */}
     </form>
   );
 };

@@ -1,11 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Item from "./Item";
+import "../styles/ListItem.scss"; // Import CSS
 
 const ListItem = () => {
   const [dataPhone, setDataPhone] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const itemsPerPage = 5; // Number of items to display per page
+  const itemsPerPage = 4; // Number of items to display per page
 
   const handlePrevious = () => {
     if (currentIndex > 0) {
@@ -37,35 +38,37 @@ const ListItem = () => {
 
   return (
     <section style={{ backgroundColor: "#eee" }}>
-      <div className="container-fluid py-5">
+      <div className="container-fluid py-5 list-container">
+        {" "}
+        {/* Thêm class list-container */}
+        <div className="btn-left">
+          <button
+            className="btn btn-primary btn-previous"
+            onClick={handlePrevious}
+            disabled={currentIndex === 0}
+          >
+            &#60;
+          </button>
+        </div>
+        <div className="btn-right">
+          <button
+            className="btn btn-primary btn-next"
+            onClick={handleNext}
+            disabled={currentIndex >= dataPhone.length - itemsPerPage}
+          >
+            &#62;
+          </button>
+        </div>
         <div className="row">
           <div className="col-md-12">
             <div className="row align-items-center">
-              <div className="col-1">
-                <button
-                  className="btn btn-primary"
-                  onClick={handlePrevious}
-                  disabled={currentIndex === 0}
-                >
-                  Previous
-                </button>
-              </div>
               {dataPhone
                 .slice(currentIndex, currentIndex + itemsPerPage)
                 .map((item, index) => (
-                  <div className="col-2 mb-5" key={index}>
+                  <div className="col-3 mb-5" key={index}>
                     <Item children={item} />
                   </div>
                 ))}
-              <div className="col-1">
-                <button
-                  className="btn btn-primary float-end"
-                  onClick={handleNext}
-                  disabled={currentIndex >= dataPhone.length - itemsPerPage}
-                >
-                  Next
-                </button>
-              </div>
             </div>
           </div>
         </div>

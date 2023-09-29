@@ -3,6 +3,7 @@ import "../styles/DetailItemDescription.scss";
 import { useEffect } from "react";
 import axios from "axios";
 import FormatDate from "../utils/FormatDate";
+import gift from "../assets/images/gift-filled.png";
 
 const DetailItemDescription = (props) => {
   const [dataDes, setDataDes] = useState();
@@ -18,65 +19,91 @@ const DetailItemDescription = (props) => {
   }, []);
   return (
     <div className="ContainerDes">
-      <table>
-        <tbody>
-          <tr>
-            <th className="title" colSpan="3">
-              {dataDes && dataDes.data ? dataDes.data.productName : ""}
-            </th>
-          </tr>
-          <tr className="brand" colSpan="3">
-            <th className="name">
-              {`Thương hiệu: ${
-                dataDes && dataDes.data ? dataDes.data.brand : ""
-              }`}
-            </th>
-            <th className="stock">
-              {`Số lượng: ${
-                dataDes && dataDes.data ? dataDes.data.quantity : ""
-              }`}
-            </th>
-            <th className="creat">
-              {`Ngày mở bán: ${
-                dataDes && dataDes.data
-                  ? FormatDate(dataDes.data.importDate)
-                  : ""
-              }`}
-            </th>
-          </tr>
-          <tr className="des">
-            <td colSpan="3">
-              {dataDes && dataDes.data ? dataDes.data.description : ""}
-            </td>
-          </tr>
-          <tr className="price">
-            <th colSpan="3">
-              <span
-                style={{
-                  color: "black",
-                  marginRight: "5em",
-                  letterSpacing: "0px",
-                }}
-              >
-                Giá chỉ:
-              </span>
-              {dataDes && dataDes.data ? dataDes.data.price + "\tVND" : ""}
-            </th>
-          </tr>
+      <div className="title">
+        {dataDes && dataDes.data ? dataDes.data.productName : ""}
+      </div>
 
-          <tr>
-            <td colSpan="3">
-              <button className="btnBuy">Mua ngay</button>
-            </td>
-          </tr>
+      <div className="ContainerChild">
+        <div className="brand">
+          {`Thương hiệu: ${
+            dataDes && dataDes.data ? dataDes.data.brand.name : ""
+          }`}
+        </div>
 
-          <tr>
-            <td colSpan="3">
-              <button className="btnAdd">Thêm vào giỏ hàng</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+        <div className="cate">
+          {`Loại thiết bị: ${
+            dataDes && dataDes.data ? dataDes.data.category.categoryName : ""
+          }`}
+        </div>
+      </div>
+      {/* =============================== */}
+      <div className="ContainerChild">
+        <div className="stock">
+          {`Số lượng: ${dataDes && dataDes.data ? dataDes.data.quantity : ""}`}
+        </div>
+        <div className="supplier">
+          {`nhà cung cấp: ${
+            dataDes && dataDes.data ? dataDes.data.supplier.name : ""
+          }`}
+        </div>
+        <div className="creat">
+          {`Ngày mở bán: ${
+            dataDes && dataDes.data ? FormatDate(dataDes.data.importDate) : ""
+          }`}
+        </div>
+      </div>
+
+      <div className="des">
+        {/* <div>
+          {dataDes && dataDes.data ? dataDes.data.description : ""}
+        </div> */}
+      </div>
+      <div className="price">
+        <span
+          style={{
+            color: "black",
+            marginRight: "5em",
+            letterSpacing: "0px",
+          }}
+        >
+          Giá chỉ:
+        </span>
+        {dataDes && dataDes.data ? dataDes.data.price + "\tVND" : ""}
+      </div>
+
+      <div className="promotionContainer">
+        <div className="promotionTitle">KHUYẾN MÃI KHI MUA NGAY:</div>
+        <div className="promoChild">
+          <img className="giftImg" src={gift}></img>
+          <div className="giftContent">
+            1x Giảm thêm 150.000 cho một số chuột Logitech, MSI, Newmen, tai
+            nghe Zidli, Lg
+          </div>
+        </div>
+        <div className="promoChild">
+          <img className="giftImg" src={gift}></img>
+          <div className="giftContent">
+            1x Giảm thêm 5% tối đa 300.000đ cho toàn bộ sản phẩm Điện Máy - Điện
+            Gia Dụng
+          </div>
+        </div>
+        <div className="promoChild">
+          <img className="giftImg" src={gift}></img>
+          <div className="giftContent">
+            1x Balo laptop Targus 15.6 TSB883 Black (Safire) (Quà tặng )
+          </div>
+        </div>
+        <div className="promoChild">
+          <img className="giftImg" src={gift}></img>
+          <div className="giftContent">
+            1x Sim Viettel 365 ngày không giới hạn dữ liệu di động (Quà tặng )
+          </div>
+        </div>
+      </div>
+      <div className="button-container">
+        <button className="btnBuy">Mua ngay</button>
+        <button className="btnAdd">Thêm vào giỏ hàng</button>
+      </div>
     </div>
   );
 };

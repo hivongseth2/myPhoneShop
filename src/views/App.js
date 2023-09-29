@@ -15,6 +15,7 @@ import Home from "./Home";
 import IntroItem from "./IntroItem";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Personal from "./Personal";
 function App() {
   return (
     <Router>
@@ -23,8 +24,12 @@ function App() {
           <Nav />
 
           <Switch>
-            <Route path="/home" exact>
+            <Route path="/" exact>
               <Home />
+            </Route>
+
+            <Route path="/home" exact>
+              <Personal />
             </Route>
             <Route path="/Register">
               <Register />

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import axios from "axios";
 const DetailImg = (props) => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [listImg, setListImg] = useState([]);
   const [activeImg, setActiveImg] = useState(
     "https://concrete.store/Content/images/not-available.jpg"
   );
@@ -13,10 +14,11 @@ const DetailImg = (props) => {
   useEffect(async () => {
     if (props.data) {
       let res = await axios.get(
-        `http://localhost:8080/api/product/${props.data}/image`
+        `http://localhost:8521/api/v1/products/getById/${props.data}`
       );
 
-      setActiveImg(res.config.url);
+      setListImg(res.data.imageProducts);
+      setActiveImg(res.data.imageProducts[0].imageLink);
 
       //useEffect có ảnh hưởng tới active => bỏ tham số đi
     }
@@ -77,59 +79,19 @@ const DetailImg = (props) => {
           </button>
 
           <ul className="itemChild" ref={imageListRef}>
-            <li
-              className={`img ${activeIndex === 0 ? "activeImg" : ""}`}
-              onClick={(event) => handleActive(0, event)}
-            >
-              <img src={activeImg} alt="item" />
-            </li>
-
-            <li
-              className={`img ${activeIndex === 1 ? "activeImg" : ""}`}
-              onClick={(event) => handleActive(1, event)}
-            >
-              <img
-                src="https://www.zdnet.com/a/img/resize/a599efb452885d4f668855aea18aae668867a960/2023/02/06/10e9ac75-29ce-4e6c-b2fb-8df48e1e40b0/oneplus-11-never-settle.jpg?auto=webp&fit=crop&height=900&width=1200"
-                alt="item"
-              />
-            </li>
-            <li
-              className={`img ${activeIndex === 2 ? "activeImg" : ""}`}
-              onClick={(event) => handleActive(2, event)}
-            >
-              <img
-                src="https://media.4rgos.it/s/Argos/9520103_R_SET?$Main768$&w=620&h=620"
-                alt="item"
-              />
-            </li>
-            <li
-              className={`img ${activeIndex === 3 ? "activeImg" : ""}`}
-              onClick={(event) => handleActive(3, event)}
-            >
-              <img
-                src="https://www.androidauthority.com/wp-content/uploads/2022/03/HMD-Global-Nokia-C21-Plus-display-angled-in-hand.jpg"
-                alt="item"
-              />
-            </li>
-
-            <li
-              className={`img ${activeIndex === 4 ? "activeImg" : ""}`}
-              onClick={(event) => handleActive(4, event)}
-            >
-              <img
-                src="https://www.androidauthority.com/wp-content/uploads/2022/03/HMD-Global-Nokia-C21-Plus-display-angled-in-hand.jpg"
-                alt="item"
-              />
-            </li>
-            <li
-              className={`img ${activeIndex === 5 ? "activeImg" : ""}`}
-              onClick={(event) => handleActive(5, event)}
-            >
-              <img
-                src="https://media.4rgos.it/s/Argos/9520103_R_SET?$Main768$&w=620&h=620"
-                alt="item"
-              />
-            </li>
+            {listImg.length > 0 &&
+              listImg.map((item, index) => {
+                return (
+                  <li
+                    className={`img ${
+                      activeIndex === index ? "activeImg" : ""
+                    }`}
+                    onClick={(event) => handleActive(index, event)}
+                  >
+                    <img src={item.imageLink} alt="item" />
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </div>

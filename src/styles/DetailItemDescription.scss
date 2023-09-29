@@ -1,22 +1,78 @@
 .ContainerDes
 {
 
-    display: grid;
+    display: flex;
+    flex-direction: column;
     color: black;
-    width: 47%;
-    margin-right: 100px;
-    padding-left: 2em;
+    width: 49%;
+ 
     float: right;
     text-align: justify;
   
     margin-top: 2.5em;
-    table {
-       table-layout: fixed;
-       box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    .ContainerChild{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        font-size: 17px;
+        padding-top: 2em ;
+        font-weight: lighter;
+        
+      
         width: 100%;
-        border-collapse: separate;
-        border-spacing: 20px;
+        .brand{
+            font-weight: bold;
+           // flex: 1;
+        }
+        .cate{
+            // text-align: end;
+         
+            font-weight: bold;
+            
+
+        }
+      
+     
    
+    }
+
+    
+    .promotionContainer
+    {
+        margin-top: 3em;
+        .promotionTitle
+        {
+            color: #ff3232;
+            font-weight: 500;
+            margin-left: 4em;
+            font-size: 12px;
+        }
+        .promoChild{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            width: 26em;
+            gap:1em;
+            padding-top: 2em;
+            margin-left: 8em;
+            .giftImg
+            {
+                width: 2em;
+                height: 2em;
+            }
+            .giftContent
+            {
+                color: #ff3232;
+                font-weight: 500;
+                margin-left: 1em;
+                font-size: 14px;
+            }
+        }
+       
+    }
+
+   
+
       
        .btnBuy, .btnAdd{
        
@@ -27,11 +83,12 @@
         font-weight: bold;
         font-size: 18px;
         // margin-left: -2em;
+        border-radius: 2px;
 
         // border-spacing: 20px;
-        
-    }
-          
+       }
+
+       
         .btnBuy{
             margin-top: 20px;
            width: 100%;
@@ -56,25 +113,26 @@
             font-size: 2em;
             color: #e70808;
             letter-spacing: 8px;
+            margin-top: 1em;
+            font-weight: bold;
         }
         .title{
             font-size: 2em;
-            color:#19376D;
+            color:#002bb9;
             letter-spacing: 1px;
+            font-weight: bolder;
         }
         
+      .button-container
+      {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1em;
+        margin-top: 4em;
       }
-      tr{
-        td{
-
-        }
-        th{
-           
-        }
-        
-      }
+     
       
-      .ContainerDes .brand, .ContainerDes .btn {
+      .ContainerDes  .ContainerDes .btn {
         width: 33.33%;
         //  table-layout: fixed;
       }
