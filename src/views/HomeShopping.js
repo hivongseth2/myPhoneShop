@@ -58,7 +58,7 @@ const HomeShopping = () => {
         <div className="row">
           <div className="col-md-6 text-end">
             <button
-              className="btn btn-danger"
+              className="btn btn-primary"
               onClick={handlePrevious}
               disabled={currentIndex === 0}
             >
@@ -67,7 +67,7 @@ const HomeShopping = () => {
           </div>
           <div className="col-md-6">
             <button
-              className="btn btn-danger"
+              className="btn btn-primary"
               onClick={handleNext}
               disabled={currentIndex >= dataPhone.length - itemsPerPage}
             >

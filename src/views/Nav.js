@@ -31,21 +31,21 @@ const Nav = () => {
 
         <div className="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
           <div className="input-group">
-            <span className="border-danger input-group-text bg-danger text-black">
+            <span className="border-primary input-group-text bg-primary text-black">
               <i className="fa-solid fa-magnifying-glass"></i>
             </span>
-            <input type="text" className="form-control border-danger" />
-            <button className="btn btn-danger text-white">Tìm kiếm</button>
+            <input type="text" className="form-control border-primary" />
+            <button className="btn btn-primary text-white">Tìm kiếm</button>
           </div>
         </div>
         <div className=" collapse navbar-collapse" id="navbarNavDropdown">
           <div className="ms-auto d-none d-lg-block ">
             <div className="input-group">
-              <span className="border-danger input-group-text bg-danger text-black">
+              <span className="border-primary input-group-text bg-primary text-black">
                 <i className="fa-solid fa-magnifying-glass"></i>
               </span>
-              <input type="text" className="form-control border-danger" />
-              <button className="btn btn-danger text-white">Tìm kiếm</button>
+              <input type="text" className="form-control border-primary" />
+              <button className="btn btn-primary text-white">Tìm kiếm</button>
             </div>
           </div>
           <ul className="navbar-nav ms-auto ">

@@ -90,7 +90,7 @@ const Item = (props) => {
           </div>
           <div class="card-body">
             <div class="clearfix mb-3">
-              <span class="float-start badge rounded-pill bg-danger">
+              <span class="float-start badge rounded-pill bg-primary">
                 {" "}
                 {data.children ? data.children.price : 0} <span>VND </span>
               </span>
@@ -103,7 +103,7 @@ const Item = (props) => {
 
             <div class="d-grid gap-2 my-4">
               <button
-                class="btn btn-danger bold-btn"
+                class="btn btn-primary bold-btn"
                 onClick={() => addCartItem()}
               >
                 add to cart
