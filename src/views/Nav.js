@@ -1,6 +1,7 @@
 import "../styles/Nav.scss";
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import logo from "../assets/images/logo.png";
 const Nav = () => {
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -9,20 +10,11 @@ const Nav = () => {
   }, []);
   return (
     <div>
-      {/* <NavLink to="/home">Trang chủ</NavLink>
-      <NavLink to="/Register">Đăng kí</NavLink>
-      <NavLink to="/Login">Đăng Nhập</NavLink>
-      <NavLink to="/ForgotPass">Quên Mật khẩu</NavLink>
-      <NavLink to="/Info">Ca Nhan</NavLink>
-      <NavLink to="/Shopping">Mua san pham</NavLink>
-      <NavLink to="/CheckOut">Thanh Toan</NavLink>
-      <NavLink to="/Cart">Giỏ Hàng </NavLink> */}
-
-      <nav className="navbar navbar-expand-lg bg-blue sticky-top navbar-light p-3 shadow-sm">
-        <a className="navbar-brand" href="">
+      <nav className="navbar navbar-expand-md bg-blue sticky-top navbar-light p-3 shadow-sm ">
+        <a className="navbar-brand ms-20" href="">
           <Link className="nav-link text-uppercase" to="/">
-            {" "}
-            <i className="fa-solid fa-shop me-2 "></i>
+            {/* <i className="fa-solid fa-shop me-5  "></i> */}
+            <img className="logo fa-solid fa-shop me-5" src={logo}></img>
           </Link>
         </a>
         <button
@@ -39,78 +31,78 @@ const Nav = () => {
 
         <div className="mx-auto my-3 d-lg-none d-sm-block d-xs-block">
           <div className="input-group">
-            <span className="border-warning input-group-text bg-warning text-white">
+            <span className="border-danger input-group-text bg-danger text-black">
               <i className="fa-solid fa-magnifying-glass"></i>
             </span>
-            <input type="text" className="form-control border-warning" />
-            <button className="btn btn-warning text-white">Search</button>
+            <input type="text" className="form-control border-danger" />
+            <button className="btn btn-danger text-white">Tìm kiếm</button>
           </div>
         </div>
         <div className=" collapse navbar-collapse" id="navbarNavDropdown">
-          <div className="ms-auto d-none d-lg-block">
+          <div className="ms-auto d-none d-lg-block ">
             <div className="input-group">
-              <span className="border-warning input-group-text bg-warning text-white">
+              <span className="border-danger input-group-text bg-danger text-black">
                 <i className="fa-solid fa-magnifying-glass"></i>
               </span>
-              <input type="text" className="form-control border-warning" />
-              <button className="btn btn-warning text-white">Search</button>
+              <input type="text" className="form-control border-danger" />
+              <button className="btn btn-danger text-white">Tìm kiếm</button>
             </div>
           </div>
           <ul className="navbar-nav ms-auto ">
             <li className="nav-item">
-              <a
-                className="nav-link mx-2 text-uppercase active"
-                aria-current="page"
-                href="#"
-              >
-                Offers
-              </a>
-            </li>
-            <li className="nav-item">
               <Link
                 to="/Shopping"
-                className="nav-link mx-2 text-uppercase"
+                className="nav-link-nav mx-2 text-uppercase"
                 href="#"
               >
-                Mua san pham
+                SẢN PHẨM
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link mx-2 text-uppercase" href="#">
                 Catalog
               </a>
-            </li>
-            <li className="nav-item">
+            </li> */}
+            {/* <li className="nav-item">
               <a className="nav-link mx-2 text-uppercase" href="#">
                 Services
               </a>
-            </li>
+            </li> */}
+
             <li className="nav-item">
-              <Link className="nav-link mx-2 text-uppercase" to="/Register">
-                Register
+              <Link className="nav-link-nav mx-2 text-uppercase" to="/Cart">
+                <i className="fa-solid fa-cart-shopping me-1"></i> Giỏ hàng
               </Link>
             </li>
-          </ul>
-          <ul className="navbar-nav ms-auto ">
-            <li className="nav-item">
-              <Link className="nav-link mx-2 text-uppercase" to="/Cart">
-                <i className="fa-solid fa-cart-shopping me-1"></i> Cart
-              </Link>
-            </li>
+
             {user == null ? (
               <li className="nav-item">
-                <Link className="nav-link mx-2 text-uppercase" to="/login">
-                  <i className="fa-solid fa-circle-user me-1"></i> Account
+                <Link
+                  className="nav-link-nav mx-2 text-uppercase"
+                  to="/Register"
+                >
+                  Đăng kí
+                </Link>
+              </li>
+            ) : (
+              <></>
+            )}
+            {user == null ? (
+              <li className="nav-item">
+                <Link className="nav-link-nav mx-2 text-uppercase" to="/login">
+                  <i className="fa-solid fa-circle-user me-1"></i> Đăng nhập
                 </Link>
               </li>
             ) : (
               <li className="nav-item">
-                <Link className="nav-link mx-2 text-uppercase" to="/home">
-                  <i className="fa-solid fa-circle-user me-1"></i> Account
+                <Link className="nav-link-nav mx-2 text-uppercase" to="/home">
+                  <i className="fa-solid fa-circle-user me-1"></i> Cá nhân
                 </Link>
               </li>
             )}
           </ul>
+
+          <ul className="navbar-nav ms-auto "></ul>
         </div>
       </nav>
     </div>

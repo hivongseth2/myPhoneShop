@@ -2,17 +2,57 @@
     background-color: #6584a8;
     overflow: hidden;
   }
+  .nav-link-nav
+  {
   
+      font-size: 14px;
+      color: #F8F8F8 !important;
+      font-weight: bold;
+      margin-left: 40px;
+      text-decoration: none;
+
+  }
   /* Style the links inside the navigation bar */
   .topnav a {
-    float: left;
+    float: center;
     color: #f2f2f2;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
     font-size: 17px;
   }
+  .navbar{
+    background-color: #E70000;
+    color: #f2f2f2 !important;
+  }
+  .navbar-brand a {
+    // padding-left: 100%;
+    margin-left: 12em !important;
+  }
+  .logo
+  {
+    width: 3em;
   
+    
+  }
+
+  .input-group{
+    width: 35em !important;
+  }
+  @media (max-width: 1280px) {
+    .navbar-brand a {
+      margin-left:0 !important;
+
+    }}
+    .input-group{
+      width: 100% !important;
+    }
+    // .btn-warning
+    // {
+    //   width: 100% !important;
+    //   margin-top: 1em !important;
+    //   border-radius: 5px !important;
+    // }
   /* Change the color of links on hover */
   .topnav a:hover {
     background-color: #2eabdd;
@@ -32,7 +72,13 @@
    
   }
 
- 
+  .containerNav
+  {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    align-items: center;
+  }
   
     .superNav {
       font-size:13px;

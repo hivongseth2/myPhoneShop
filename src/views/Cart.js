@@ -4,15 +4,21 @@ import { withRouter } from "react-router-dom";
 import CartItem from "./CartItem";
 import { useEffect } from "react";
 import { useState } from "react";
+import axios from "axios";
 import CheckOut from "./CheckOut";
 import { useHistory } from "react-router-dom";
 
 const Cart = () => {
   // Khai bao bien
   const accessToken = localStorage.getItem("token");
+  const [dataUser, setDataUser] = useState();
   const [cart, setCart] = useState([]);
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [data, setData] = useState();
+  const datatemp = localStorage.getItem("data");
+
+  const [CartId, setCartId] = useState();
   const history = useHistory();
 
   // control
@@ -26,14 +32,39 @@ const Cart = () => {
     }
   }, [cart]);
 
+  useEffect(() => {
+    if (datatemp) {
+      const parsedData = JSON.parse(datatemp);
+      setDataUser(parsedData);
+      setCartId(parsedData.shoppingCart.id);
+
+      if (CartId) {
+        fetchData();
+      }
+    }
+  }, [CartId]);
+
   const updateCart = async () => {
+    // axios
+    //   .get(
+    //     `http://localhost:8521/api/v1/shoppingCarts/getById/${data.shoppingCart.id}`
+    //   )
+    //   .then((response) => {
+    //     console.log(response);
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //   });
     try {
-      const response = await fetch("http://localhost:8080/api/cart-item", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await fetch(
+        `http://localhost:8521/api/v1/shoppingCartDetails/getByCartId/`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
       const data = await response.json();
       setCart(data);
     } catch (error) {
@@ -50,22 +81,25 @@ const Cart = () => {
       );
     }
   }, [cart]);
+  /// FETCH CART
 
-  useEffect(async () => {
+  const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/cart-item", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      const data = await response.json();
-      setCart(data);
-      console.log(data);
+      const response = await fetch(
+        `http://localhost:8521/api/v1/shoppingCartDetails/getByCartId/${CartId}`
+      );
+      console.log(response.text);
+
+      if (response.ok) {
+        const data = await response.json();
+        setCart(data);
+      } else {
+        console.log("errrrrrrrrrrrrrrrr");
+      }
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  };
 
   const handleCheckOut = () => {
     // console.log(props.data.children.id);
@@ -90,7 +124,7 @@ const Cart = () => {
               <div className="card-body">
                 {/* ------------------------------------------------------------------- */}
 
-                {cart && cart.length > 0 ? (
+                {data ? (
                   cart.map((item, index) => {
                     console.log(item + "bbbbbbbbb");
 

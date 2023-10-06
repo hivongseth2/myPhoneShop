@@ -37,12 +37,13 @@ const Login = () => {
       );
 
       const data = await response;
+      console.log(data);
 
       if (data.data) {
         localStorage.setItem("data", JSON.stringify(data.data));
         localStorage.setItem("token", JSON.stringify(data.data.token));
         toast.success(`Chào mừng  đã quay trở lại!`);
-        history.push("/home");
+        // history.push("/home");
       }
 
       console.log(data);

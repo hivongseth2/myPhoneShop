@@ -28,7 +28,7 @@ const Personal = () => {
   const SignOut = () => {
     localStorage.removeItem("data");
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
+
     history.push("/login");
   };
   //   ======
@@ -113,7 +113,7 @@ const Personal = () => {
       setBirthDay(FormatDate2Input(temp.dateOfBirth) || "");
 
       setAddress(temp.address || "");
-      setSex(temp.sex.toString() || "0");
+      setSex(temp.sex || "0");
       setPhone(temp.phone || "");
       setAccount(temp.account);
       setId(temp.id);

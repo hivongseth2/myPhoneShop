@@ -3,6 +3,7 @@ import "../styles/Register.scss";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ const Register = () => {
   const [address, setAddress] = useState("");
   const [sex, setSex] = useState(0);
   const [phone, setPhone] = useState("");
-
+  const history = useHistory();
   const handleChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
@@ -50,13 +51,18 @@ const Register = () => {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (password !== rPassword) {
       toast.error("Mật khẩu và xác nhận mật khẩu không giống nhau.");
       return;
     }
+
+    var idTemp = await axios.get(
+      "http://localhost:8521/api/v1/customer/randomId"
+    );
+    console.log(idTemp);
 
     axios
       .post("http://localhost:8521/api/v1/auth/register", {
@@ -66,13 +72,13 @@ const Register = () => {
         roles: [{ id: 1 }],
       })
       .then((response) => {
-        const account = response.data;
+        const account = { id: response.data.id };
         const customerData = {
-          id: "1222",
+          id: idTemp.data,
           firstName,
           lastName,
           email,
-          dateOfBirth: null,
+          dateOfBirth: birthDay,
           sex: parseInt(sex),
           phone,
           address,
@@ -91,15 +97,17 @@ const Register = () => {
             // Xử lý khi tạo khách hàng thành công
             console.log("Khách hàng đã được tạo:", response.data);
             toast.success(`Chúc mừng bạn đã đăng ký thành công!`);
+            history.push("/login");
           })
           .catch((error) => {
             // Xử lý khi có lỗi xảy ra
-            console.error("Lỗi khi tạo khách hàng:", error);
+
+            toast.error(response.data || "Đã có lỗi xảy ra.");
           });
       })
       .catch((error) => {
         console.error(error);
-        toast.error(error.response.data.message || "Đã có lỗi xảy ra.");
+        toast.error("Đã có lỗi xảy ra.");
       });
   };
 

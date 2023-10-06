@@ -16,13 +16,27 @@ const Item = (props) => {
 
   // =======================addd cart
 
-  const addCartItem = () => {
-    console.log(data.children);
+  const addCartItem = async () => {
+    // console.log(data.children);
     const userData = JSON.parse(localStorage.getItem("data"));
+
+    const form = {
+      product: { id: data.children.id },
+      shoppingCart: { id: userData.shoppingCart.id },
+      quantity: 1,
+    };
+    console.log(form);
     if (userData && userData.token) {
       delete userData.token;
     }
-    console.log("user", userData);
+
+    await axios
+      .post(
+        "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
+        form
+      )
+      .then((response) => console.log(response));
+    //console.log("user", userData);
   };
 
   // =============
@@ -76,7 +90,7 @@ const Item = (props) => {
           </div>
           <div class="card-body">
             <div class="clearfix mb-3">
-              <span class="float-start badge rounded-pill bg-success">
+              <span class="float-start badge rounded-pill bg-danger">
                 {" "}
                 {data.children ? data.children.price : 0} <span>VND </span>
               </span>
@@ -89,7 +103,7 @@ const Item = (props) => {
 
             <div class="d-grid gap-2 my-4">
               <button
-                class="btn btn-warning bold-btn"
+                class="btn btn-danger bold-btn"
                 onClick={() => addCartItem()}
               >
                 add to cart

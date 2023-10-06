@@ -13,10 +13,11 @@ const Home = () => {
       <Slider />
 
       {/* ================= */}
+      <Categories />
       <h1 className="text-center mt-5">Sản phẩm nổi bật</h1>
       <ListItem />
       {/* ===============LOAI SAN PHAM */}
-      <Categories />
+
       {/* =============== */}
 
       <h1 className="text-center mt-5">Dành cho bạn</h1>

@@ -43,20 +43,20 @@ const ListItem = () => {
         {/* Thêm class list-container */}
         <div className="btn-left">
           <button
-            className="btn btn-primary btn-previous"
+            className="btn  btn-previous"
             onClick={handlePrevious}
             disabled={currentIndex === 0}
           >
-            &#60;
+            <span>&#60;</span>
           </button>
         </div>
         <div className="btn-right">
           <button
-            className="btn btn-primary btn-next"
+            className="btn  btn-next"
             onClick={handleNext}
             disabled={currentIndex >= dataPhone.length - itemsPerPage}
           >
-            &#62;
+            <span>&#62;</span>
           </button>
         </div>
         <div className="row">

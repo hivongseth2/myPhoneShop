@@ -1,3 +1,6 @@
+import thum1 from "../assets/images/thumbai_1.png";
+import thum2 from "../assets/images/thumbai_2.png";
+import thum3 from "../assets/images/thumbai_3.png";
 const Slider = () => {
   return (
     <div id="carouselExampleDark" class="carousel carousel-dark slide">
@@ -27,42 +30,40 @@ const Slider = () => {
         <div
           class="carousel-item active"
           data-bs-interval="10000"
-          style={{ height: "500px" }}
+          style={{ height: "520px" }}
         >
           <img
-            src="https://thuthuatnhanh.com/wp-content/uploads/2021/11/hinh-anh-chill-dep.jpg"
+            src={thum1}
             class="d-block w-100 object-fit-cover border rounded"
             alt="..."
           />
           <div class="carousel-caption d-none d-md-block">
-            <h5>First slide label</h5>
-            <p>Some representative placeholder content for the first slide.</p>
+            <h5>Thu cũ đổi mới</h5>
+            <p>Trợ giá đến 5 triệu.</p>
           </div>
         </div>
         <div
           class="carousel-item"
           data-bs-interval="2000"
-          style={{ height: "500px" }}
+          style={{ height: "520px" }}
         >
           <img
-            src="https://haycafe.vn/wp-content/uploads/2022/03/anh-chan-dung-1.jpg"
+            src={thum2}
             class="d-block w-100 object-fit-cover border rounded"
             alt="..."
           />
           <div class="carousel-caption d-none d-md-block">
-            <h5>Second slide label</h5>
-            <p>Some representative placeholder content for the second slide.</p>
+            <h5>Máy tính chơi game</h5>
+            <p>
+              Máy tính chơi game thế hệ hệ mới, trang bị vi xử lý thế hệ 12.
+            </p>
           </div>
         </div>
-        <div class="carousel-item" style={{ height: "500px" }}>
-          <img
-            src="https://image.vtc.vn/resize/th/upload/2021/12/20/1154-12344056.jpg"
-            class="d-block w-100"
-            alt="..."
-          />
+        <div class="carousel-item" style={{ height: "520px" }}>
+          <img src={thum3} class="d-block w-100" alt="..." />
           <div class="carousel-caption d-none d-md-block object-fit-fill border rounded">
-            <h5>Third slide label</h5>
-            <p>Some representative placeholder content for the third slide.</p>
+            <h5>Đổi điểm lấy quà</h5>
+            <p>Thi bao nhiêu điểm giảm liền bấy nhiêu.</p>
           </div>
         </div>
       </div>
