@@ -2,16 +2,22 @@ import "../styles/Login.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { CustomFetch } from "../utils/CustomFetch";
 import { toast } from "react-toastify";
+import logo from "../assets/images/logo.png";
+
 import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
 import { useHistory } from "react-router-dom";
 
-import { useState } from "react";
+import { useState, createContext, useContext } from "react";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassWord] = useState("");
   const [error, setError] = useState(null);
+
+  const { setIsLoggedIn } = useAuth();
+
   const history = useHistory();
 
   const handleOnChangeInput = (e) => {
@@ -43,7 +49,9 @@ const Login = () => {
         localStorage.setItem("data", JSON.stringify(data.data));
         localStorage.setItem("token", JSON.stringify(data.data.token));
         toast.success(`Chào mừng  đã quay trở lại!`);
-        // history.push("/home");
+        setIsLoggedIn(true);
+
+        history.push("/");
       }
 
       console.log(data);
@@ -61,27 +69,31 @@ const Login = () => {
   };
 
   return (
-    <form className="col-8 offset-2  container justify-content-center bgLogin">
+    <form className="col-8 offset-2  containerLogin justify-content-center bgLogin">
       <div className="col-12">
-        <h2>Sign In</h2>
+        <div className="containerLogo">
+          <h2 style={{ display: "block" }}>Đăng nhập</h2>
+          <img className="logoLogin" src={logo}></img>
+        </div>
+
         <div className="mb-3 p">
-          <label className="lbInput">Email address</label>
+          {/* <label className="lbInput">Email</label> */}
           <input
             type="email"
             className="form-control inputEmail "
-            placeholder="User@gmail.com"
+            placeholder="Nhập email"
             name="email"
             value={email}
             onChange={(e) => handleOnChangeInput(e)}
           />
         </div>
         <div className="mb-3 ">
-          <label className="lbInput">Password</label>
+          {/* <label className="lbInput">Password</label> */}
           <input
             type="password"
             className="form-control inputPassword"
             name="password"
-            placeholder="*******"
+            placeholder="Nhập mật khẩu"
             value={password}
             onChange={(e) => handleOnChangeInput(e)}
           />
@@ -98,7 +110,7 @@ const Login = () => {
               htmlFor="customCheck1"
             >
               {/* <br /> */}
-              Remember me
+              Lưu tài khoản
             </label>
           </div>
         </div>
@@ -108,14 +120,14 @@ const Login = () => {
             className="btn btn-primary col-12 mx-auto"
             onClick={(e) => handleSignIn(e)}
           >
-            Submit
+            Đăng nhập
           </button>
         </div>
-        <p className="forgot-password text-right">
-          Forgot <a href="#">password?</a>
-        </p>
+        {/* <p className="forgot-password text-right">
+          <a href="#">Quên mật khẩu?</a>
+        </p> */}
         <Link class="nav-item btn btn-primary col-12" to="/Register">
-          Register
+          Đăng kí
         </Link>
       </div>
 

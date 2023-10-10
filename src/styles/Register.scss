@@ -1,20 +1,26 @@
+
+
+.formReg{
+  margin-left: 25% !important;
+
+}
 .containerReg
 {
-    box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
-    background-color: rgba(17, 18, 19, 0.288);
+    // box-shadow: rgba(0, 0, 0, 0.18) 0px 2px 4px;
+    // background-color: rgba(17, 18, 19, 0.288);
     align-items: center;
     height: fit-content !important;
     grid-template-columns: 40% 55%;
     padding: 200px 0;
     display: grid;
-    background-image: url("../assets/images/bgLogin.jpg");
+    // background-image: url("../assets/images/bgLogin.jpg");
     background-size: cover;
 
 
     font-size: 22px;
     .formReg
     {
-      
+
 
         .item
         {

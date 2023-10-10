@@ -7,8 +7,9 @@ import { Link, NavLink } from "react-router-dom";
 
 import FormatDate2Input from "../utils/FormatDate2Input";
 import { useHistory } from "react-router-dom";
+import { useAuth } from "./AuthContext";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext, createContext } from "react";
 const Personal = () => {
   const history = useHistory();
   const [user, setUser] = useState();
@@ -23,11 +24,14 @@ const Personal = () => {
   const [phone, setPhone] = useState("");
   const [id, setId] = useState("");
   const [account, setAccount] = useState();
+  const { setIsLoggedIn } = useAuth();
+
   // ==========================================
 
   const SignOut = () => {
     localStorage.removeItem("data");
     localStorage.removeItem("token");
+    setIsLoggedIn(false);
 
     history.push("/login");
   };
@@ -97,6 +101,8 @@ const Personal = () => {
       .catch((error) => {
         // Xử lý khi có lỗi xảy ra
         toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+
+        console.log(error);
       });
   };
 
@@ -113,7 +119,8 @@ const Personal = () => {
       setBirthDay(FormatDate2Input(temp.dateOfBirth) || "");
 
       setAddress(temp.address || "");
-      setSex(temp.sex || "0");
+      setSex(String(temp.sex) || "0");
+      console.log(temp.sex);
       setPhone(temp.phone || "");
       setAccount(temp.account);
       setId(temp.id);

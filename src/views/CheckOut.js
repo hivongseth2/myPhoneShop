@@ -1,19 +1,45 @@
 import { useHistory } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
 import CheckoutItem from "./CheckoutItem";
 import Address from "./Address";
 import FormCheckOut from "./FormCheckOut";
-const CheckOut = () => {
+const CheckOut = (props) => {
   const [cart, setCart] = useState([]);
-
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const [dataUser, setDataUser] = useState();
+  const [CartId, setCartId] = useState([]);
   const accessToken = localStorage.getItem("token");
-
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(0);
 
+  useEffect(() => {
+    setCartId(props.location.state.listCheckout);
+  }, [props.location.state.listCheckout]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const tempCart = await Promise.all(
+        CartId.map(async (item) => {
+          return await fetchCartDetail(item);
+        })
+      );
+
+      // Lọc ra những giá trị không null
+      const filteredCart = tempCart.filter((item) => item !== null);
+      setCart(filteredCart);
+    };
+
+    fetchData();
+  }, [CartId]);
+
+  useEffect(() => {
+    console.log(cart);
+  }, [cart]);
   useEffect(() => {
     if (cart.length > 0) {
       setTotal(
@@ -33,31 +59,58 @@ const CheckOut = () => {
       );
     }
   }, [cart]);
+  const fetchCartDetail = async (id) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8521/api/v1/shoppingCartDetails/getById/${id}`
+      );
+
+      if (response.status === 200) {
+        const data = response.data;
+        return data;
+      } else {
+        console.log("errrrrrrrrrrrrrrrr");
+        return null;
+      }
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  };
 
   // useEffect(async () => {
-  //   if (props.data) {
-  //     let res = await axios.get(
-  //       `http://localhost:8080/api/product/${props.data}/image`
-  //     );
-  //     setActiveImg(res.config.url);
+  //   try {
+  //     const response = await fetch("http://localhost:8080/api/cart-item", {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //     });
+  //     const data = await response.json();
+  //     setCart(data);
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.error(error);
   //   }
   // }, []);
 
-  useEffect(async () => {
-    try {
-      const response = await fetch("http://localhost:8080/api/cart-item", {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      const data = await response.json();
-      setCart(data);
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await fetch(
+  //       `http://localhost:8521/api/v1/shoppingCarts/getById/${CartId}`
+  //     );
+
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       console.log(data.shoppingCartDetails);
+  //       setCart(data.shoppingCartDetails);
+  //     } else {
+  //       console.log("errrrrrrrrrrrrrrrr");
+  //     }
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
   return (
     <div className="container-lg mt-1 bg-white rounded">
       <div className="row">
@@ -66,6 +119,7 @@ const CheckOut = () => {
             <div className="row">
               <div className="col-md-7 col-lg-7">
                 <h4 className="mb-3">Tiến hành thanh toán</h4>
+                <a href="home">Thay đổi thông tin</a>
                 <form className="needs-validation" noValidate>
                   <FormCheckOut />
                 </form>
@@ -109,7 +163,7 @@ const CheckOut = () => {
             </div>
           </div>
         ) : (
-          <div className="col-12">Không có sản phẩm nào trong giỏ hàng</div>
+          <div className="col-12">Bạn chưa chọn sản phẩm nào</div>
         )}
       </div>
     </div>

@@ -1,6 +1,17 @@
-import Address from "./Address";
+// import Address from "./Address";
+import { useEffect, useState } from "react";
 
 const FormCheckOut = () => {
+  const [user, setUser] = useState();
+
+  useEffect(() => {
+    const data = localStorage.getItem("data");
+    setUser(JSON.parse(data));
+    console.log("==============", user);
+  }, []);
+  if (!user) {
+    return <div>Đang tải...</div>;
+  }
   return (
     <form className="needs-validation" noValidate>
       <div className="row g-3">
@@ -11,9 +22,10 @@ const FormCheckOut = () => {
           <input
             type="text"
             className="form-control"
-            id="firstName"
+            id="name"
             placeholder=""
-            value=""
+            disabled
+            value={`${user.lastName} ${user.firstName}  `}
             required
           />
           <div className="invalid-feedback">Valid first name is required.</div>
@@ -27,7 +39,8 @@ const FormCheckOut = () => {
             type="text"
             className="form-control"
             id="phoneNumber"
-            placeholder="08xxxxxxx"
+            disabled
+            value={`${user.phone}  `}
             required
           />
           <div className="invalid-feedback">
@@ -40,45 +53,35 @@ const FormCheckOut = () => {
             Địa chỉ nhận hàng
           </label>
 
-          <Address />
-
-          <div className="invalid-feedback">Chọn địa chỉ.</div>
-        </div>
-
-        <div className="col-md-12">
-          <label htmlFor="zip" className="form-label">
-            Số nhà
-          </label>
           <input
             type="text"
             className="form-control"
-            id="zip"
+            id="address"
+            disabled
+            value={`${user.address}  `}
             placeholder=""
             required
           />
-          <div className="invalid-feedback">
-            Vui lòng nhập số nhà chính xác.
-          </div>
         </div>
       </div>
 
       <hr className="my-4" />
 
       <div className="form-check">
-        <input type="checkbox" className="form-check-input" id="same-address" />
+        {/* <input type="checkbox" className="form-check-input" id="same-address" /> */}
         <label className="form-check-label" htmlFor="same-address">
-          Shipping address is the same as my billing address
+          Thanh toán khi nhận hàng
         </label>
       </div>
 
-      <div className="form-check">
+      {/* <div className="form-check">
         <input type="checkbox" className="form-check-input" id="save-info" />
         <label className="form-check-label" htmlFor="save-info">
           Save this information for next time
         </label>
-      </div>
+      </div> */}
 
-      <hr className="my-4" />
+      {/* <hr className="my-4" />
 
       <h4 className="mb-3">Payment</h4>
 
@@ -134,7 +137,7 @@ const FormCheckOut = () => {
         </div>
       </div>
 
-      <hr className="my-4" />
+      <hr className="my-4" /> */}
     </form>
   );
 };

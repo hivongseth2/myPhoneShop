@@ -2,7 +2,11 @@ import "../styles/Nav.scss";
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import logo from "../assets/images/logo.png";
+import { useAuth } from "./AuthContext"; // Import useAuth từ context
+
 const Nav = () => {
+  const { isLoggedIn } = useAuth(); // Sử dụng useAuth để lấy trạng thái đăng nhập
+
   const [user, setUser] = useState(null);
   useEffect(() => {
     const data = localStorage.getItem("data");
@@ -10,11 +14,11 @@ const Nav = () => {
   }, []);
   return (
     <div>
-      <nav className="navbar navbar-expand-md bg-blue sticky-top navbar-light p-3 shadow-sm ">
-        <a className="navbar-brand ms-20" href="">
+      <nav className="navbar navbar-expand-md bg-blue sticky-top navbar-light  shadow-sm ">
+        <a className="navbar-brand " href="">
           <Link className="nav-link text-uppercase" to="/">
             {/* <i className="fa-solid fa-shop me-5  "></i> */}
-            <img className="logo fa-solid fa-shop me-5" src={logo}></img>
+            <img className="logo " src={logo}></img>
           </Link>
         </a>
         <button
@@ -39,10 +43,11 @@ const Nav = () => {
           </div>
         </div>
         <div className=" collapse navbar-collapse" id="navbarNavDropdown">
-          <div className="ms-auto d-none d-lg-block ">
-            <div className="input-group">
+          {/* <div className="ms-auto d-none d-lg-block "> */}
+          <div className=" d-none d-lg-block ">
+            <div className="input-group searchContainer">
               <span className="border-primary input-group-text bg-primary text-black">
-                <i className="fa-solid fa-magnifying-glass"></i>
+                <i className="fas fa-search"></i>
               </span>
               <input type="text" className="form-control border-primary" />
               <button className="btn btn-primary text-white">Tìm kiếm</button>
@@ -75,30 +80,41 @@ const Nav = () => {
               </Link>
             </li>
 
-            {user == null ? (
-              <li className="nav-item">
-                <Link
-                  className="nav-link-nav mx-2 text-uppercase"
-                  to="/Register"
-                >
-                  Đăng kí
-                </Link>
-              </li>
-            ) : (
-              <></>
-            )}
-            {user == null ? (
-              <li className="nav-item">
-                <Link className="nav-link-nav mx-2 text-uppercase" to="/login">
-                  <i className="fa-solid fa-circle-user me-1"></i> Đăng nhập
-                </Link>
-              </li>
-            ) : (
+            {isLoggedIn ? (
+              // Đã đăng nhập, hiển thị "Cá nhân"
               <li className="nav-item">
                 <Link className="nav-link-nav mx-2 text-uppercase" to="/home">
                   <i className="fa-solid fa-circle-user me-1"></i> Cá nhân
                 </Link>
               </li>
+            ) : user ? (
+              // Chưa đăng nhập, nhưng user tồn tại, hiển thị "Cá nhân"
+              <li className="nav-item">
+                <Link className="nav-link-nav mx-2 text-uppercase" to="/home">
+                  <i className="fa-solid fa-circle-user me-1"></i> Cá nhân
+                </Link>
+              </li>
+            ) : (
+              // Chưa đăng nhập và user không tồn tại, hiển thị "Đăng nhập"
+              <>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link-nav mx-2 text-uppercase"
+                    to="/Register"
+                  >
+                    Đăng kí
+                  </Link>
+                </li>
+
+                <li className="nav-item">
+                  <Link
+                    className="nav-link-nav mx-2 text-uppercase"
+                    to="/login"
+                  >
+                    <i className="fa-solid fa-circle-user me-1"></i> Đăng nhập
+                  </Link>
+                </li>
+              </>
             )}
           </ul>
 

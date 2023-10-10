@@ -1,7 +1,7 @@
 .container
 {
     box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
-    background-color: rgb(0, 0, 0);
+    // background-color: rgb(0, 0, 0);
     margin: 3% 0;
    
     width: 100%;
@@ -25,8 +25,49 @@
 
 }
 
+.containerLogin
+{
+    
+    margin: 3% 0;
+    margin-left: 30% !important;
+    width: 40% !important;
+    height: 60vh;
+    background-size: cover;
+
+    display: flex;
+    flex-direction: row;
+    
+    color: black;
+    
+  
+    .lbInput
+    {
+        font-size: 18px;
+        width: 100%;
+        min-width: 20em;
+        margin-bottom: 10px;
+       text-align: left; 
+      
+    }
+}
+.logoLogin
+{
+    width: 7em !important;
+    justify-content: center !important;
+    align-items: center;
+
+
+}
+.containerLogo
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
 .bgLogin
 {
-    background-image: url("../assets/images/bgLogin.jpg");
+    // background-image: url("../assets/images/bgLogin.jpg");
     background-size: cover;
 }

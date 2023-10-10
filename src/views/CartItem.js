@@ -1,138 +1,94 @@
-import { useEffect } from "react";
-import { useState } from "react";
+// CartItem.js
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
-// import UpDown
 const CartItem = (props) => {
-  const [item, setItem] = useState(props.item);
-  const [id, setId] = useState(props.item.product.id);
-  const [quantity, setQuantity] = useState(props.item.quantity);
-  const [price, setPrice] = useState(
-    props.item.quantity * props.item.product.price
-  );
+  const { item, token, setCart, updateCart, selected, onSelect } = props;
+  const [quantity, setQuantity] = useState(item.quantity);
+  const [price, setPrice] = useState(item.quantity * item.product.price);
 
-  const [img, setImg] = useState();
-
-  const accessToken = props.token;
-
-  const handleQuantityItemPlus = async (event) => {
-    event.preventDefault();
+  const handleQuantityItemPlus = async () => {
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/cart-item/update?id=${props.item.id}`,
+      const response = await axios.post(
+        "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
         {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            productId: id,
-            quantity: quantity + 1,
-          }),
+          id: item.id,
+          product: { id: item.product.id },
+          shoppingCart: { id: item.shoppingCart.id },
+          quantity: quantity + 1,
         }
       );
 
-      const data = await response.json();
-      console.log(data);
-      console.log(props.item);
-      console.log(accessToken);
       setQuantity(quantity + 1);
+      setPrice((quantity + 1) * item.product.price);
       props.updateCart();
+      toast.success("Cập nhật sản phẩm thành công");
     } catch (error) {
       console.error(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
     }
   };
 
-  const handleQuantityItemMinus = async (event) => {
+  const handleQuantityItemMinus = async () => {
     if (quantity === 0) return;
-    event.preventDefault();
     try {
-      const response = await fetch(
-        `http://localhost:8080/api/cart-item/update?id=${props.item.id}`,
+      const response = await axios.post(
+        "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
         {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-          body: JSON.stringify({
-            productId: id,
-            quantity: quantity - 1,
-          }),
+          id: item.id,
+          product: { id: item.product.id },
+          shoppingCart: { id: item.shoppingCart.id },
+          quantity: quantity - 1,
         }
       );
 
-      const data = await response.json();
-      console.log(data);
-      console.log(props.item);
-      console.log(accessToken);
       setQuantity(quantity - 1);
+      setPrice((quantity - 1) * item.product.price);
       props.updateCart();
+      toast.success("Cập nhật sản phẩm thành công");
     } catch (error) {
       console.error(error);
+      toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
     }
   };
-
-  useEffect(async () => {
-    if (props.item) {
-      let res = await axios.get(
-        `http://localhost:8080/api/product/${id}/image`
-      );
-      setImg(res.config.url);
-      console.log(id);
-    }
-  }, []);
 
   return (
     <div className="row">
+      <div className="col-lg-1 col-md-12 mb-4 mb-lg-0">
+        <input type="checkbox" checked={selected} onChange={onSelect} />
+      </div>
       <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
-        <div
-          className="bg-image hover-overlay hover-zoom ripple rounded"
-          data-mdb-ripple-color="light"
-        >
-          <img src={img} className="w-100" />
-          <a href="#!">
-            <div
-              className="mask"
-              style={{
-                backgroundColor: "rgba(251, 251, 251, 0.2)",
-              }}
-            ></div>
-          </a>
-        </div>
+        <img
+          src={
+            item.product.imageProducts.length > 0
+              ? item.product.imageProducts[0].imageLink
+              : "https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-32.png"
+          }
+          className="w-100"
+        />
       </div>
 
       <div className="col-lg-5 col-md-6 mb-4 mb-lg-0">
         <p>
-          <strong>{item.product.name}</strong>
+          <strong>{item.product.productName}</strong>
         </p>
-
+        <p>{`Đơn giá : ${item.product.price} VND`}</p>
         <button
-          typeName="button"
+          type="button"
           className="btn btn-primary btn-sm me-1 mb-2"
-          data-mdb-toggle="tooltip"
-          title="Remove item"
+          onClick={props.removeItemCart}
         >
           <i className="fas fa-trash"></i>
         </button>
-        <button
-          type="button"
-          className="btn btn-danger btn-sm mb-2"
-          data-mdb-toggle="tooltip"
-          title="Move to the wish list"
-        >
-          <i className="fas fa-heart"></i>
-        </button>
       </div>
 
-      <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
+      <div className="col-lg-3 col-md-6 mb-4 mb-lg-0">
         <div className="d-flex mb-4" style={{ maxWidth: "300px" }}>
           <button
-            className="btn btn-primary px-3 me-3"
-            onClick={(e) => {
-              handleQuantityItemMinus(e);
-            }}
+            type="button"
+            className="btn btn-primary px-2 me-2"
+            onClick={handleQuantityItemMinus}
           >
             <i className="fas fa-minus"></i>
           </button>
@@ -147,26 +103,26 @@ const CartItem = (props) => {
               className="form-control"
             />
             <label className="form-label" htmlFor="form1">
-              Quantity
+              Số lượng
             </label>
           </div>
 
           <button
-            className="btn btn-primary px-3 ms-2"
-            onClick={(event) => {
-              handleQuantityItemPlus(event);
-            }}
+            type="button"
+            className="btn btn-primary px-2 ms-2"
+            onClick={handleQuantityItemPlus}
           >
             <i className="fas fa-plus"></i>
           </button>
         </div>
 
         <p className="text-start text-md-center">
-          <strong>{price}</strong>
+          <strong>{price} VND</strong>
         </p>
       </div>
       <hr className="my-4" />
     </div>
   );
 };
+
 export default CartItem;
