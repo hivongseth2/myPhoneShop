@@ -1,27 +1,29 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-const Filter = () => {
-  const [category, setCategory] = useState();
-  const [brand, setBrand] = useState();
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        let resCate = await axios.get(
-          "http://localhost:8521/api/v1/category/getAll"
-        );
-
-        let dataCate = resCate && resCate.data ? resCate.data : [];
-        console.log(dataCate);
-        setCategory(dataCate);
-      } catch (error) {
-        console.error("Error fetching data:", error);
+const Filter = ({ category, brand, setSelectedCategory, setSelectedBrand }) => {
+  // const [category, setCategory] = useState();
+  // const [brand, setBrand] = useState();
+  // ===========================Xử Lý filter ============
+  const handleCategoryChange = (event) => {
+    const categoryId = event.target.id.split("-")[1];
+    setSelectedCategory((prevSelected) => {
+      if (prevSelected.includes(categoryId)) {
+        return prevSelected.filter((id) => id !== categoryId);
       }
-    }
+      return [...prevSelected, categoryId];
+    });
+  };
 
-    fetchData();
-  }, []);
+  const handleBrandChange = (event) => {
+    const brandId = event.target.id.split("-")[1];
+    setSelectedBrand((prevSelected) => {
+      if (prevSelected.includes(brandId)) {
+        return prevSelected.filter((id) => id !== brandId);
+      }
+      return [...prevSelected, brandId];
+    });
+  };
 
   return (
     <div
@@ -31,30 +33,25 @@ const Filter = () => {
       <div className="d-flex flex-column bd-highlight mb-3">
         <div className="p-2 bd-highlight shadow p-3 mb-2 bg-body-tertiary rounded">
           Thương hiệu
-          <div className="form-check">
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckDefault"
-              />
-              <label className="form-check-label" htmlFor="flexCheckDefault">
-                Laptop Acer
-              </label>
-            </div>
-            <div className="form-check">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                value=""
-                id="flexCheckChecked"
-              />
-              <label className="form-check-label" htmlFor="flexCheckChecked">
-                Laptop Asus
-              </label>
-            </div>
-          </div>
+          {brand &&
+            brand.length > 0 &&
+            brand.map((item) => (
+              <div className="form-check" key={item.id}>
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  onChange={handleBrandChange}
+                  value=""
+                  id={`categoryCheckbox-${item.id}`}
+                />
+                <label
+                  className="form-check-label"
+                  htmlFor={`categoryCheckbox-${item.id}`}
+                >
+                  {item.name}
+                </label>
+              </div>
+            ))}
         </div>
         {/* ============ */}
 
@@ -70,6 +67,7 @@ const Filter = () => {
                 <input
                   className="form-check-input"
                   type="checkbox"
+                  onChange={handleCategoryChange}
                   value=""
                   id={`categoryCheckbox-${item.id}`}
                 />

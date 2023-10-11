@@ -18,6 +18,7 @@ import { useState, createContext } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Personal from "./Personal";
 import { AuthProvider } from "./AuthContext";
+import SuccessOrder from "./SuccessOrder";
 // import { AuthProvider } from "./AuthContext";
 const LogContext = createContext();
 
@@ -43,6 +44,9 @@ function App() {
               </Route>
               <Route path="/Login">
                 <Login isLog={isLog} setIsLog={setIsLog} />
+              </Route>
+              <Route path="/SuccessOrder">
+                <SuccessOrder />
               </Route>
               <Route path="/ForgotPass">
                 <ForgotPass />

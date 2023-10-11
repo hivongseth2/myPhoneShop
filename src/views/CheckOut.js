@@ -1,26 +1,35 @@
-import { useHistory } from "react-router-dom";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
+import { toast } from "react-toastify";
+// import ConfirmationForm from "./ConfirmationForm";
+import ConfirmOrder from "./ConfirmOrder";
 import CheckoutItem from "./CheckoutItem";
 import Address from "./Address";
 import FormCheckOut from "./FormCheckOut";
 const CheckOut = (props) => {
   const [cart, setCart] = useState([]);
   const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const [dataUser, setDataUser] = useState();
+  const history = useHistory();
+  const [user, setUser] = useState();
   const [CartId, setCartId] = useState([]);
   const accessToken = localStorage.getItem("token");
   const [total, setTotal] = useState(0);
   const [quantity, setQuantity] = useState(0);
+  const [note, setNote] = useState("");
+  const [isConfirming, setIsConfirming] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(false);
 
   useEffect(() => {
     setCartId(props.location.state.listCheckout);
   }, [props.location.state.listCheckout]);
 
+  // lấy thông tin user
+  useEffect(() => {
+    const data = localStorage.getItem("data");
+    setUser(JSON.parse(data));
+  }, []);
   useEffect(() => {
     const fetchData = async () => {
       const tempCart = await Promise.all(
@@ -59,6 +68,40 @@ const CheckOut = (props) => {
       );
     }
   }, [cart]);
+
+  // =========tạo order
+  const handleConfirm = async () => {
+    // Prepare the order details as specified
+    const orderData = {
+      note,
+      customer: {
+        id: user.id, // Replace with actual customer ID
+      },
+      orderDetails: cart.map((item) => ({
+        quantity: item.quantity,
+        product: {
+          id: item.product.id,
+        },
+      })),
+    };
+    const res = await axios
+      .post("http://localhost:8521/api/v1/orders/saveOrUpdate", orderData)
+
+      .then((res) => {
+        console.log("đơn hàng đã được tạo:", res.data);
+
+        toast.success(`bạn đã tạo đơn hàng thành công`);
+        history.push("/SuccessOrder");
+      })
+      .catch((error) => {
+        // Xử lý khi có lỗi xảy ra
+        toast.error("Có lỗi xảy ra, vui lòng thử lại sau");
+
+        console.log(error);
+      });
+  };
+
+  // ====
   const fetchCartDetail = async (id) => {
     try {
       const response = await axios.get(
@@ -78,39 +121,6 @@ const CheckOut = (props) => {
     }
   };
 
-  // useEffect(async () => {
-  //   try {
-  //     const response = await fetch("http://localhost:8080/api/cart-item", {
-  //       method: "GET",
-  //       headers: {
-  //         Authorization: `Bearer ${accessToken}`,
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     setCart(data);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }, []);
-
-  // const fetchData = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `http://localhost:8521/api/v1/shoppingCarts/getById/${CartId}`
-  //     );
-
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       console.log(data.shoppingCartDetails);
-  //       setCart(data.shoppingCartDetails);
-  //     } else {
-  //       console.log("errrrrrrrrrrrrrrrr");
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
   return (
     <div className="container-lg mt-1 bg-white rounded">
       <div className="row">
@@ -121,7 +131,7 @@ const CheckOut = (props) => {
                 <h4 className="mb-3">Tiến hành thanh toán</h4>
                 <a href="home">Thay đổi thông tin</a>
                 <form className="needs-validation" noValidate>
-                  <FormCheckOut />
+                  <FormCheckOut note={note} setNote={setNote} />
                 </form>
               </div>
               <div className="col-md-5 col-lg-5">
@@ -157,10 +167,24 @@ const CheckOut = (props) => {
               </div>
             </div>
             <div className="row">
-              <button className="w-100 btn btn-danger btn-lg" type="submit">
+              <button
+                className="w-100 btn btn-danger btn-lg"
+                type="submit"
+                onClick={() => setPopupVisible(true)} // Show the popup
+              >
                 Continue to checkout
               </button>
             </div>
+            {popupVisible && (
+              <ConfirmOrder
+                cart={cart}
+                // isConfirming={isConfirming}
+                handleConfirm={handleConfirm}
+                setIsConfirming={setIsConfirming}
+                setPopupVisible={setPopupVisible}
+                user={user}
+              />
+            )}
           </div>
         ) : (
           <div className="col-12">Bạn chưa chọn sản phẩm nào</div>

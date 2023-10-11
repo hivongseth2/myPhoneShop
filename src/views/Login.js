@@ -48,7 +48,9 @@ const Login = () => {
       if (data.data) {
         localStorage.setItem("data", JSON.stringify(data.data));
         localStorage.setItem("token", JSON.stringify(data.data.token));
-        toast.success(`Chào mừng  đã quay trở lại!`);
+        toast.success(
+          `Chào mừng ${data.data.firstName} ${data.data.lastName} đã quay trở lại!`
+        );
         setIsLoggedIn(true);
 
         history.push("/");

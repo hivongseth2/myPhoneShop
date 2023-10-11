@@ -32,11 +32,16 @@ const Cart = () => {
     if (datatemp) {
       const parsedData = JSON.parse(datatemp);
       setDataUser(parsedData);
-      setCartId(parsedData.shoppingCart.id);
 
-      if (CartId) {
-        fetchData();
+      if (parsedData && parsedData.shoppingCart && parsedData.shoppingCart.id) {
+        setCartId(parsedData.shoppingCart.id);
       }
+    }
+  }, [datatemp]);
+
+  useEffect(() => {
+    if (CartId) {
+      fetchData();
     }
   }, [CartId]);
 

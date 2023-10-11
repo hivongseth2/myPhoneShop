@@ -31,25 +31,39 @@ const CartItem = (props) => {
   };
 
   const handleQuantityItemMinus = async () => {
-    if (quantity === 0) return;
-    try {
-      const response = await axios.post(
-        "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-        {
-          id: item.id,
-          product: { id: item.product.id },
-          shoppingCart: { id: item.shoppingCart.id },
-          quantity: quantity - 1,
-        }
-      );
+    if (quantity === 1) {
+      try {
+        await axios.delete(
+          `http://localhost:8521/api/v1/shoppingCartDetails/delete/${item.id}`
+        );
 
-      setQuantity(quantity - 1);
-      setPrice((quantity - 1) * item.product.price);
-      props.updateCart();
-      toast.success("Cập nhật sản phẩm thành công");
-    } catch (error) {
-      console.error(error);
-      toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
+        props.updateCart();
+
+        toast.success("Xóa sản phẩm khỏi giỏ hàng thành công");
+      } catch (error) {
+        console.error(error);
+        toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
+      }
+    } else {
+      try {
+        const response = await axios.post(
+          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
+          {
+            id: item.id,
+            product: { id: item.product.id },
+            shoppingCart: { id: item.shoppingCart.id },
+            quantity: quantity - 1,
+          }
+        );
+
+        setQuantity(quantity - 1);
+        setPrice((quantity - 1) * item.product.price);
+        props.updateCart();
+        toast.success("Cập nhật sản phẩm thành công");
+      } catch (error) {
+        console.error(error);
+        toast.error("Có lỗi xảy ra, vui lòng thử lại sau!");
+      }
     }
   };
 

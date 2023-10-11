@@ -1,8 +1,9 @@
 // import Address from "./Address";
 import { useEffect, useState } from "react";
 
-const FormCheckOut = () => {
+const FormCheckOut = ({ note, setNote }) => {
   const [user, setUser] = useState();
+  // const [note, setNote] = useState("");
 
   useEffect(() => {
     const data = localStorage.getItem("data");
@@ -49,7 +50,7 @@ const FormCheckOut = () => {
         </div>
 
         <div className="col-md-12">
-          <label htmlFor="country" className="form-label">
+          <label htmlFor="address" className="form-label">
             Địa chỉ nhận hàng
           </label>
 
@@ -59,6 +60,22 @@ const FormCheckOut = () => {
             id="address"
             disabled
             value={`${user.address}  `}
+            placeholder=""
+            required
+          />
+        </div>
+
+        <div className="col-md-12">
+          <label htmlFor="note" className="form-label">
+            Ghi chú
+          </label>
+
+          <input
+            type="text"
+            className="form-control"
+            id="address"
+            onChange={(e) => setNote(e.target.value)}
+            value={`${note}`}
             placeholder=""
             required
           />

@@ -16,27 +16,74 @@ const Item = (props) => {
 
   // =======================addd cart
 
-  const addCartItem = async () => {
-    // console.log(data.children);
-    const userData = JSON.parse(localStorage.getItem("data"));
+  // const addCartItem = async () => {
+  //   // console.log(data.children);
+  //   const userData = JSON.parse(localStorage.getItem("data"));
 
+  //   const form = {
+  //     product: { id: data.children.id },
+  //     shoppingCart: { id: userData.shoppingCart.id },
+  //     quantity: 1,
+  //   };
+  //   console.log(form);
+  //   if (userData && userData.token) {
+  //     delete userData.token;
+  //   }
+
+  //   await axios
+  //     .post(
+  //       "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
+  //       form
+  //     )
+  //     .then((response) => console.log(response));
+  //   //console.log("user", userData);
+  // };
+
+  const addCartItem = async () => {
+    const userData = JSON.parse(localStorage.getItem("data"));
     const form = {
       product: { id: data.children.id },
       shoppingCart: { id: userData.shoppingCart.id },
       quantity: 1,
     };
-    console.log(form);
+
     if (userData && userData.token) {
       delete userData.token;
     }
 
-    await axios
-      .post(
-        "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
-        form
-      )
-      .then((response) => console.log(response));
-    //console.log("user", userData);
+    // Fetch existing shopping cart data
+    const existingCartResponse = await axios.get(
+      `http://localhost:8521/api/v1/shoppingCarts/getById/${userData.shoppingCart.id}`
+    );
+
+    if (
+      existingCartResponse.data &&
+      existingCartResponse.data.shoppingCartDetails
+    ) {
+      const existingProduct =
+        existingCartResponse.data.shoppingCartDetails.find(
+          (item) => item.product.id === data.children.id
+        );
+
+      if (existingProduct) {
+        // Product already in cart, increase quantity
+        await axios.post(
+          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
+          {
+            id: existingProduct.id,
+            product: { id: existingProduct.product.id },
+            shoppingCart: { id: existingProduct.shoppingCart.id },
+            quantity: existingProduct.quantity + 1,
+          }
+        );
+      } else {
+        // Product not in cart, add it
+        await axios.post(
+          "http://localhost:8521/api/v1/shoppingCartDetails/saveOrUpdate",
+          form
+        );
+      }
+    }
   };
 
   // =============
@@ -51,7 +98,6 @@ const Item = (props) => {
       }
 
       setData(props);
-      console.log("đây là item", props);
     }
   }, [props]);
 
