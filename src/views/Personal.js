@@ -8,9 +8,10 @@ import { Link, NavLink } from "react-router-dom";
 import FormatDate2Input from "../utils/FormatDate2Input";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
-
+import OrderDetail from "../components/OrderDetail";
 import { useEffect, useState, useContext, createContext } from "react";
 import OrderTracking from "../components/OrderTracking";
+import ListOrder from "../components/ListOrder";
 const Personal = () => {
   const history = useHistory();
   const [user, setUser] = useState();
@@ -320,7 +321,12 @@ const Personal = () => {
       </div>
 
       {/* =============== */}
-      <OrderTracking />
+
+      <div className="containerOrder">
+        <ListOrder />
+        {/* <OrderDetail /> */}
+        {/* <OrderTracking /> */}
+      </div>
     </>
   );
 };

@@ -10,6 +10,7 @@ import Information from "../components/Information";
 import Shopping from "./Shopping";
 import DetailItem from "../components/DetaiItem";
 import Cart from "./Cart";
+import OrderDetail from "../components/OrderDetail";
 import CheckOut from "./CheckOut";
 import Home from "./Home";
 import IntroItem from "../components/IntroItem";
@@ -63,6 +64,13 @@ function App() {
               <Route path="/Shopping/:id">
                 <DetailItem />
               </Route>
+
+              {/* <Route path="/OrderDetail/:id">
+         
+                render={(props) => <OrderDetail {...props} />}
+              </Route> */}
+              <Route path="/OrderDetail/:id" component={OrderDetail} />
+
               <Route path="/Cart">
                 <Cart />
               </Route>
