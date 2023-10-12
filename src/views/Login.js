@@ -6,7 +6,7 @@ import logo from "../assets/images/logo.png";
 
 import axios from "axios";
 import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
 
 import { useHistory } from "react-router-dom";
 

@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react";
-import "../styles/ConfirmOrder.scss";
+import "../../styles/ConfirmOrder.scss";
 const ConfirmOrder = ({
   cart,
   setIsConfirming,
   setPopupVisible,
   user,
   handleConfirm,
+  total,
 }) => {
-  const [total, setTotal] = useState(0);
+  // const [total, setTotal] = useState(0);
 
-  useEffect(() => {
-    cart.map((item) => {
-      setTotal(total + item.quantity * item.product.price);
-    });
-  }, []);
+  // useEffect(() => {
+  //   cart.map((item) => {
+  //     setTotal(total + item.quantity * item.product.price);
+  //   });
+  // }, []);
   return (
     // <div>
     //   <h4>Order Summary</h4>

@@ -6,19 +6,22 @@ import Login from "../views/Login.js";
 import { ToastContainer, toast } from "react-toastify";
 import ForgotPass from "./ForgotPass";
 import "react-toastify/dist/ReactToastify.css";
-import Information from "./Information";
+import Information from "../components/Information";
 import Shopping from "./Shopping";
-import DetailItem from "./DetaiItem";
+import DetailItem from "../components/DetaiItem";
 import Cart from "./Cart";
 import CheckOut from "./CheckOut";
 import Home from "./Home";
-import IntroItem from "./IntroItem";
+import IntroItem from "../components/IntroItem";
 import { useState, createContext } from "react";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Personal from "./Personal";
-import { AuthProvider } from "./AuthContext";
+// import { AuthProvider } from "./AuthContext";
+import { useAuth, AuthProvider } from "../stores/AuthContext"; // Import useAuth từ context
+
 import SuccessOrder from "./SuccessOrder";
+import Footer from "../components/Footer";
 // import { AuthProvider } from "./AuthContext";
 const LogContext = createContext();
 
@@ -74,6 +77,9 @@ function App() {
               />
             </Switch>
           </header>
+
+          {/* foooter */}
+          <Footer />
           <ToastContainer
             position="bottom-center"
             autoClose={5000}

@@ -7,9 +7,10 @@ import { Link, NavLink } from "react-router-dom";
 
 import FormatDate2Input from "../utils/FormatDate2Input";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
 
 import { useEffect, useState, useContext, createContext } from "react";
+import OrderTracking from "../components/OrderTracking";
 const Personal = () => {
   const history = useHistory();
   const [user, setUser] = useState();
@@ -129,189 +130,198 @@ const Personal = () => {
   }, [flag]);
   //   ========
   return (
-    <div className="containerPerson">
-      <div className="containerChild ">
-        <div className="row">
-          <div className="col-12">
-            <h3>Hồ Sơ Của Tôi</h3>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-6">
-            <div className="item">
-              <label htmlFor="fName" className="lbInput">
-                Họ
-              </label>
-              <input
-                type="fName"
-                id="fName"
-                name="fName"
-                value={firstName}
-                className="form-control"
-                onChange={handleChange}
-                required
-              />
+    <>
+      <div className="containerPerson">
+        <div className="containerChild ">
+          <div className="row">
+            <div className="col-12">
+              <h3>Hồ Sơ Của Tôi</h3>
             </div>
           </div>
-
-          <div className="col-6">
-            <div className="item">
-              <label htmlFor="lName" className="lbInput">
-                Tên
-              </label>
-              <input
-                type="lName"
-                id="lName"
-                name="lName"
-                value={lastName}
-                className="form-control"
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-12">
-            <div className="item">
-              <label htmlFor="address" className="lbInput">
-                Địa chỉ:
-              </label>
-              <input
-                type="text"
-                id="address"
-                name="address"
-                value={address}
-                className="form-control"
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="row">
-          <div className="col-6">
-            <div className="item">
-              <label htmlFor="email" className="lbInput">
-                Email:
-              </label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                value={email}
-                className="form-control"
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="col-6">
-            <div className="item">
-              <label htmlFor="phone" className="lbInput">
-                Số điện thoại:
-              </label>
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                value={phone}
-                className="form-control"
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-        </div>
-        <div className="row">
-          <div className="col-6">
-            <div className="item">
-              <label htmlFor="birthday" className="lbInput">
-                Ngày sinh:
-              </label>
-              <input
-                type="date"
-                id="birthday"
-                name="birthday"
-                value={birthDay}
-                className="form-control"
-                onChange={handleChange}
-                required
-              />
-            </div>
-          </div>
-
-          <div className="col-6">
-            <label className="lbInput">Giới tính:</label>
-
-            <div className="item row">
-              <div className="col-6 ">
+          <div className="row">
+            <div className="col-6">
+              <div className="item">
+                <label htmlFor="fName" className="lbInput">
+                  Họ
+                </label>
                 <input
-                  type="radio"
-                  id="female"
-                  name="sex"
-                  value="0"
-                  checked={sex === "0"}
+                  type="fName"
+                  id="fName"
+                  name="fName"
+                  value={firstName}
+                  className="form-control"
                   onChange={handleChange}
+                  required
                 />
-                <label htmlFor="female">Nữ</label>
               </div>
+            </div>
 
-              <div className="col-6">
+            <div className="col-6">
+              <div className="item">
+                <label htmlFor="lName" className="lbInput">
+                  Tên
+                </label>
                 <input
-                  type="radio"
-                  id="male"
-                  name="sex"
-                  value="1"
-                  checked={sex === "1"}
+                  type="lName"
+                  id="lName"
+                  name="lName"
+                  value={lastName}
+                  className="form-control"
                   onChange={handleChange}
+                  required
                 />
-                <label htmlFor="male">Nam</label>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="row">
-          <div className="col-12 pt-xl-3">
-            <div className="item">
-              <button
-                className="submitBtn btn btn-primary"
-                type="submit"
-                onClick={(e) => handleSubmit(e)}
-              >
-                cập nhật
-              </button>
+          <div className="row">
+            <div className="col-12">
+              <div className="item">
+                <label htmlFor="address" className="lbInput">
+                  Địa chỉ:
+                </label>
+                <input
+                  type="text"
+                  id="address"
+                  name="address"
+                  value={address}
+                  className="form-control"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-6">
+              <div className="item">
+                <label htmlFor="email" className="lbInput">
+                  Email:
+                </label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  value={email}
+                  className="form-control"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="col-6">
+              <div className="item">
+                <label htmlFor="phone" className="lbInput">
+                  Số điện thoại:
+                </label>
+                <input
+                  type="text"
+                  id="phone"
+                  name="phone"
+                  value={phone}
+                  className="form-control"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-6">
+              <div className="item">
+                <label htmlFor="birthday" className="lbInput">
+                  Ngày sinh:
+                </label>
+                <input
+                  type="date"
+                  id="birthday"
+                  name="birthday"
+                  value={birthDay}
+                  className="form-control"
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="col-6">
+              <label className="lbInput">Giới tính:</label>
+
+              <div className="item row">
+                <div className="col-6 ">
+                  <input
+                    type="radio"
+                    id="female"
+                    name="sex"
+                    value="0"
+                    checked={sex === "0"}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="female">Nữ</label>
+                </div>
+
+                <div className="col-6">
+                  <input
+                    type="radio"
+                    id="male"
+                    name="sex"
+                    value="1"
+                    checked={sex === "1"}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="male">Nam</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12 pt-xl-3">
+              <div className="item">
+                <button
+                  className="submitBtn btn btn-primary"
+                  type="submit"
+                  onClick={(e) => handleSubmit(e)}
+                >
+                  cập nhật
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="ContainerAvatar">
-        <img
-          className="imgItem"
-          src={
-            user && user.avatar
-              ? user.avatar.imageLink
-              : "https://lagrotteduyeti.com/wp-content/themes/themify-music/themify/img/non-skin.gif"
-          }
-          alt="Avatar"
-        />
-        <div className="btnAvatar">
-          <button type="button" class="btn btn-secondary">
-            Chọn ảnh
+        <div className="ContainerAvatar">
+          <img
+            className="imgItem"
+            src={
+              user && user.avatar
+                ? user.avatar.imageLink
+                : "https://lagrotteduyeti.com/wp-content/themes/themify-music/themify/img/non-skin.gif"
+            }
+            alt="Avatar"
+          />
+          <div className="btnAvatar">
+            <button type="button" class="btn btn-secondary">
+              Chọn ảnh
+            </button>
+          </div>
+        </div>
+
+        <div className="ContainerOut">
+          <button
+            type="button"
+            class="btn btn-danger"
+            onClick={() => SignOut()}
+          >
+            Đăng xuất
           </button>
         </div>
       </div>
 
-      <div className="ContainerOut">
-        <button type="button" class="btn btn-danger" onClick={() => SignOut()}>
-          Đăng xuất
-        </button>
-      </div>
-    </div>
+      {/* =============== */}
+      <OrderTracking />
+    </>
   );
 };
 export default Personal;

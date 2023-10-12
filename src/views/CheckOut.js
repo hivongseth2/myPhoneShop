@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 // import ConfirmationForm from "./ConfirmationForm";
-import ConfirmOrder from "./ConfirmOrder";
-import CheckoutItem from "./CheckoutItem";
-import Address from "./Address";
-import FormCheckOut from "./FormCheckOut";
+import ConfirmOrder from "./Forms/ConfirmOrder";
+import CheckoutItem from "../components/CheckoutItem";
+// import Address from "../components/Address";
+import FormCheckOut from "./Forms/FormCheckOut";
 const CheckOut = (props) => {
   const [cart, setCart] = useState([]);
   const location = useLocation();
@@ -183,6 +183,7 @@ const CheckOut = (props) => {
                 setIsConfirming={setIsConfirming}
                 setPopupVisible={setPopupVisible}
                 user={user}
+                total={total}
               />
             )}
           </div>

@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Item from "./Item";
+import Item from "../components/Item";
 import "../styles/Shopping.scss";
 import Nav from "./Nav";
-import Filter from "./Filter";
+import Filter from "../components/Filter";
 import { useLocation } from "react-router-dom";
 
 const Shopping = () => {

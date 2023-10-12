@@ -1,7 +1,10 @@
 import "../styles/Categories.scss";
 const Categories = () => {
   return (
-    <div class="container-fluid bg-custom shadow-sm p-3 mb-5  rounded">
+    <div
+      class="container-fluid  shadow-sm p-3 mb-5  rounded"
+      style={{ backgroundColor: "white" }}
+    >
       <div class="row mt-2 g-4">
         <div class="col-md-3">
           <div class="cardcate p-1 ">

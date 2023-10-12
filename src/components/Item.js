@@ -4,7 +4,6 @@ import axios from "axios";
 import { useHistory, useLocation } from "react-router-dom";
 
 import Filter from "./Filter";
-import BtnBuy from "./BtnBuy";
 import BtnCart from "./BtnCart";
 
 const Item = (props) => {

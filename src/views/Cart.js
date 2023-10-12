@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import CartItem from "./CartItem";
+import CartItem from "../components/CartItem";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 const Cart = () => {

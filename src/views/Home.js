@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import Filter from "./Filter";
-import IntroItem from "./IntroItem";
-import ListItem from "./ListItem";
+import Filter from "../components/Filter";
+import IntroItem from "../components/IntroItem";
+import ListItem from "../components/ListItem";
 import Shopping from "./Shopping";
-import Categories from "./Categories";
+// import Categories from "../components/Categories";
+import Categories from "../components/Categories";
 
-import HomeShopping from "./HomeShopping";
-import Slider from "./Slider";
+import HomeShopping from "../components/HomeShopping";
+import Slider from "../components/Slider";
 const Home = () => {
   return (
     <div className="slider container-fluid">

@@ -2,7 +2,7 @@ import "../styles/Nav.scss";
 import { Link, NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
 import logo from "../assets/images/logo.png";
-import { useAuth } from "./AuthContext"; // Import useAuth từ context
+import { useAuth } from "../stores/AuthContext"; // Import useAuth từ context
 
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
